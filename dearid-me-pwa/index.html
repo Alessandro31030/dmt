@@ -10,8 +10,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="DEARID">
-<meta name="theme-color" content="#F2F5F9" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#060E17" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#F2F5F9">
+<meta name="color-scheme" content="light only">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="apple-touch-icon" href="icon-180.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,23 +29,7 @@
   --display:ui-rounded,"SF Pro Rounded","Nunito",system-ui,sans-serif;
   --body:-apple-system,BlinkMacSystemFont,"SF Pro Text","Plus Jakarta Sans",system-ui,sans-serif;
   --r:20px;
-  color-scheme:light;
-}
-@media (prefers-color-scheme:dark){
-  :root:not([data-theme="light"]){
-    --bg:#060E17; --tint:#0D2438; --surface:#0F1B29; --ink:#EAF2FA; --muted:#8C9BAD; --faint:#566678; --line:#1C2B3C;
-    --water:#3AA6F0; --water-2:#1B74C4; --aqua:#73DBFA; --water-soft:#122A41; --on-water:#FFFFFF; --tp:26%;
-    --good:#3CC48A; --warn:#E9A23B; --crit:#F0705E;
-    --shadow:0 1px 0 rgba(255,255,255,.03),0 8px 24px rgba(0,0,0,.35); --shadow-lg:0 16px 44px rgba(0,0,0,.55);
-    color-scheme:dark;
-  }
-}
-:root[data-theme="dark"]{
-  --bg:#060E17; --tint:#0D2438; --surface:#0F1B29; --ink:#EAF2FA; --muted:#8C9BAD; --faint:#566678; --line:#1C2B3C;
-  --water:#3AA6F0; --water-2:#1B74C4; --aqua:#73DBFA; --water-soft:#122A41; --on-water:#FFFFFF; --tp:26%;
-  --good:#3CC48A; --warn:#E9A23B; --crit:#F0705E;
-  --shadow:0 1px 0 rgba(255,255,255,.03),0 8px 24px rgba(0,0,0,.35); --shadow-lg:0 16px 44px rgba(0,0,0,.55);
-  color-scheme:dark;
+  color-scheme:light only;
 }
 *{box-sizing:border-box}
 html,body{height:100%;margin:0}
@@ -94,7 +78,7 @@ h1,h2,h3,p{margin:0}
 .gstat p span{color:var(--muted);font-weight:600}
 .pct{font:800 15px/1 var(--display);padding:7px 11px;border-radius:999px;background:var(--water);color:var(--on-water);font-variant-numeric:tabular-nums}
 .pct.done{background:var(--good)}
-.goal-link{display:inline-flex;align-items:center;gap:4px;color:var(--muted);font-size:13.5px;font-weight:600;padding:6px 10px;border-radius:999px}
+.dropbtn{display:block;border-radius:40%}
 
 /* ---------- generic ---------- */
 .sec{padding:20px 16px 0;display:flex;flex-direction:column;gap:10px}
@@ -162,6 +146,7 @@ input[type=number],input[type=text],input[type=time]{-webkit-appearance:none;app
 .li .g1{flex:1;min-width:0}
 .li .g1 b{display:block;font-weight:700;overflow-wrap:anywhere}
 .li .g1 small{color:var(--muted);font-size:12.5px}
+.li>.ic{color:var(--faint)}
 .li .ml{font:800 18px/1 var(--display);font-variant-numeric:tabular-nums;white-space:nowrap;text-align:right}
 .li .ml small{display:block;font:500 11.5px/1.5 var(--body);color:var(--muted)}
 .del{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:var(--faint);flex:none;margin-right:-6px}
@@ -203,9 +188,6 @@ button.tile{text-align:left}
 .chart .goal{stroke:var(--ink);stroke-width:1.5;stroke-dasharray:3 2;opacity:.35}
 .chart .val{font:800 12px var(--display);fill:var(--ink)}
 .chart .hitbox{fill:transparent;cursor:pointer}
-.legend{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:12px;font-weight:600;margin-top:6px}
-.legend i{display:inline-block;width:14px;height:8px;border-radius:3px;background:var(--water);margin-right:5px;vertical-align:middle}
-.legend i.l2{opacity:.32} .legend i.l3{height:0;border-top:2px dashed var(--muted);background:none;border-radius:0}
 .dist{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
 .dist .nm{font-weight:600;font-size:14px;min-width:0;overflow-wrap:anywhere;display:flex;align-items:center;gap:8px}
 .dist .bar{height:8px;border-radius:999px;background:var(--water-soft);overflow:hidden;min-width:50px}
@@ -249,10 +231,6 @@ input[type=range]{width:100%;accent-color:var(--water);min-height:32px}
 .fab{width:54px;height:54px;margin:-18px 6px 0;border-radius:50%;background:linear-gradient(160deg,var(--aqua),var(--water) 48%,var(--water-2));color:#fff;display:grid;place-items:center;box-shadow:0 10px 24px rgba(29,143,225,.42),0 0 0 4px var(--bg)}
 .toast{position:absolute;left:16px;right:16px;bottom:calc(96px + env(safe-area-inset-bottom));background:var(--ink);color:var(--bg);border-radius:16px;padding:8px 8px 8px 16px;min-height:52px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:600;font-size:14px;z-index:40;box-shadow:var(--shadow-lg);animation:up .22s ease-out}
 .toast button{color:var(--aqua);font-weight:800;flex:none;padding:10px 12px;border-radius:10px}
-.demo{display:flex;align-items:center;justify-content:space-between;gap:10px;background:var(--ink);color:var(--bg);border-radius:16px;padding:10px 10px 10px 14px;font-size:13.5px}
-.demo b{display:block;font-size:14px}
-.demo .btn{background:var(--bg);color:var(--ink);box-shadow:none;flex:none}
-
 /* ---------- streak ---------- */
 .sk{display:flex;flex-direction:column;align-items:center;text-align:center;gap:2px}
 .sk b{font:800 76px/.9 var(--display);font-variant-numeric:tabular-nums;margin-top:4px}
@@ -368,6 +346,7 @@ const DI={
   sparkle:c=>GL(c)+LQ(c)+'<circle cx="10.4" cy="16" r="1" fill="'+W+'"/><circle cx="13.7" cy="13.2" r=".9" fill="'+W+'"/><circle cx="12.6" cy="18.1" r=".75" fill="'+W+'"/><circle cx="14.6" cy="6.6" r=".9" fill="'+c+'" opacity=".6"/><circle cx="10" cy="5.6" r=".7" fill="'+c+'" opacity=".6"/>',
   cup:c=>STEAM(c)+'<path d="M4.4 9.6h12v3.4a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z" fill="'+c+'"/><path d="M16.4 11h1.2a2.1 2.1 0 0 1 0 4.2h-1.5" fill="none" stroke="'+c+'" stroke-width="1.7"/>'+CUPB(c),
   mug:c=>STEAM(c)+MUG(c),
+  macch:c=>STEAM(c)+'<path d="M4.4 9.6h12v3.4a5 5 0 0 1-5 5h-2a5 5 0 0 1-5-5z" fill="'+c+'"/><ellipse cx="10.4" cy="9.8" rx="4.3" ry="1.6" fill="#F6EADB"/><path d="M16.4 11h1.2a2.1 2.1 0 0 1 0 4.2h-1.5" fill="none" stroke="'+c+'" stroke-width="1.7"/>'+CUPB(c),
   tea:c=>MUG(c)+'<path d="M10.8 8c0-2.4 1.6-4 4.2-4.3" fill="none" stroke="'+c+'" stroke-width="1.2" opacity=".7"/><rect x="14.6" y="2.4" width="4" height="4.2" rx=".9" fill="'+c+'" opacity=".75"/>',
   leaf:c=>MUG(c)+'<path d="M13.2 7.2c-.2-3 1.8-5 5.6-5 .2 3.6-1.8 5.3-5.6 5z" fill="'+c+'" opacity=".7"/><path d="M13.6 6.8c1.2-1.2 2.4-2 3.6-2.6" stroke="'+W+'" stroke-width=".9" stroke-linecap="round" opacity=".8"/>',
   foam:c=>'<path d="M3.8 10.2h13.6v3a5.5 5.5 0 0 1-5.5 5.5H9.3a5.5 5.5 0 0 1-5.5-5.5z" fill="'+c+'"/><path d="M4.4 10.4a2.3 2.3 0 0 1 2.3-2.9 2.9 2.9 0 0 1 5.3-1 2.5 2.5 0 0 1 4.6 2.2l.1 1.7z" fill="#F6EADB" stroke="'+c+'" stroke-width=".8" stroke-opacity=".4"/><path d="M17.4 11.4h1a2.1 2.1 0 0 1 0 4.2h-1.3" fill="none" stroke="'+c+'" stroke-width="1.7"/>'+CUPB(c),
@@ -382,7 +361,7 @@ const DI={
   wine:c=>'<path d="M7 2.8h10c.3 5-1.8 8.7-5 8.7S6.7 7.8 7 2.8z" fill="none" stroke="'+c+'" stroke-width="1.5" opacity=".5"/><path d="M7.3 6.4h9.4c-.4 3.1-2.2 5.1-4.7 5.1S7.7 9.5 7.3 6.4z" fill="'+c+'"/><path d="M12 11.5v7.6M8.6 20.5h6.8" stroke="'+c+'" stroke-width="1.7" stroke-linecap="round"/>',
   shot:c=>'<path d="M4.8 7.8h14.4l-1.3 11.5A1.9 1.9 0 0 1 16 21H8a1.9 1.9 0 0 1-1.9-1.7z" fill="none" stroke="'+c+'" stroke-width="1.6" stroke-linejoin="round" opacity=".5"/><path d="M5.8 13h12.4l-.8 6.2a1 1 0 0 1-1 .8H7.6a1 1 0 0 1-1-.8z" fill="'+c+'"/><rect x="9" y="10.2" width="4.6" height="4.6" rx="1" fill="'+W+'" opacity=".8" stroke="'+c+'" stroke-opacity=".35" transform="rotate(14 11.3 12.5)"/>'
 };
-const ICO={acqua:'glass',frizzante:'sparkle',te:'tea',tisana:'leaf',espresso:'cup',americano:'mug',cappuccino:'foam',latte:'milk',cola:'can',colazero:'can',aranciata:'can',succo:'juice',tefreddo:'iced',energy:'energy',sport:'bottle',proteico:'shaker',birra:'beer',vino:'wine',superalcolico:'shot'};
+const ICO={acqua:'glass',frizzante:'sparkle',te:'tea',tisana:'leaf',espresso:'cup',macchiato:'macch',americano:'mug',cappuccino:'foam',latte:'milk',cola:'can',colazero:'can',aranciata:'can',succo:'juice',tefreddo:'iced',energy:'energy',sport:'bottle',proteico:'shaker',birra:'beer',vino:'wine',superalcolico:'shot'};
 const icoOf=d=>DI[d.ic]?d.ic:(ICO[d.id]||'glass');
 const dSvg=(k,c,s)=>'<svg width="'+s+'" height="'+s+'" viewBox="0 0 24 24" aria-hidden="true">'+(DI[k]||DI.glass)(c)+'</svg>';
 const dIcon=(d,s)=>{const c=okCol(d.col);return'<span class="di" style="--c:'+c+';width:'+s+'px;height:'+s+'px">'+dSvg(icoOf(d),c,Math.round(s*.64))+'</span>'};
@@ -399,6 +378,7 @@ const DRINKS=[
  D1('te','Tè','acq',100,1,0,0,20,0,0,0,0.3,'#C27C2C',[150,200,250,330],'tea',U+'«Tea, black, brewed»'),
  D1('tisana','Tisana','acq',100,1,0,0,0,0,0,0,0.2,'#5FA650',[150,200,250,330],'leaf',U+'«Herbal tea, chamomile, brewed»'),
  D1('espresso','Caffè espresso','caf',98,9,0,0,212,0,0.1,0.2,1.7,'#6B4330',[25,30,40,60],'cup',U+'«Coffee, brewed, espresso»'),
+ D1('macchiato','Caffè macchiato','caf',95,26,1.7,0,141,0,1.1,1.2,2.7,'#8A5A3B',[35,45,60],'macch','Calcolato: 2 parti di espresso e 1 di latte intero (USDA)'),
  D1('americano','Caffè americano','caf',99,1,0,0,40,0,0.1,0,0,'#7D5235',[150,200,250,350],'mug',U+'«Coffee, brewed»'),
  D1('cappuccino','Cappuccino','caf',90,51,4,0,42,0,2.5,2.6,4.2,'#B5875A',[150,180,250],'foam','Calcolato: 1 parte di espresso e 4 di latte intero (USDA)'),
  D1('latte','Latte intero','caf',88,61,5.1,0,0,0,3.2,3.3,4.8,'#7E9BBA',[150,200,250],'milk',U+'«Milk, whole, 3.25% milkfat»'),
@@ -445,8 +425,7 @@ function normMeta(m){const d=defMeta();m=m||{};const o=Object.assign({},d,m);
   return o}
 let S={meta:defMeta(),months:{}};
 function loadLocal(){try{const j=JSON.parse(localStorage.getItem(LS)||'null');if(j&&j.meta){S={meta:normMeta(j.meta),months:j.months||{}}}}catch(e){}}
-let DEMO=false,REAL=null;const st0=()=>DEMO?REAL:S;
-function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(st0()))}catch(e){}}
+function saveLocal(){try{localStorage.setItem(LS,JSON.stringify(S))}catch(e){}}
 const EMPTY=Object.freeze({e:Object.freeze([]),p:Object.freeze([])});
 function day(k,create){const m=k.slice(0,7),d=k.slice(8);let M=S.months[m];
   if(!M){if(!create)return EMPTY;M=S.months[m]={u:0,days:{}}}
@@ -458,10 +437,10 @@ const drink=id=>S.meta.drinks.find(d=>d.id===id)||GONE;
 /* ---- cloud copy (only inside Claude, private per account) ---- */
 let cloud=null,sync=inClaude?'wait':'local',flushT=0,flushing=false;const dirty=new Set();
 const sleep=ms=>new Promise(r=>setTimeout(r,ms));
-function queue(id){if(DEMO)return;dirty.add(id);if(cloud){clearTimeout(flushT);flushT=setTimeout(flush,900)}}
+function queue(id){dirty.add(id);if(cloud){clearTimeout(flushT);flushT=setTimeout(flush,900)}}
 async function flush(){if(!cloud||flushing)return;flushing=true;
   try{while(dirty.size){const id=dirty.values().next().value;dirty.delete(id);
-      const B=st0(),body=id==='meta'?B.meta:B.months[id.slice(2)];if(!body)continue;
+      const B=S,body=id==='meta'?B.meta:B.months[id.slice(2)];if(!body)continue;
       const data=JSON.parse(JSON.stringify(body));
       try{await cloud.doc(id).set(data)}
       catch(e){if(e&&e.code==='unavailable'){await sleep(1200+Math.random()*1500);try{await cloud.doc(id).set(data)}catch(e2){sync='err';dirty.add(id);break}}else{sync='err';dirty.add(id);break}}
@@ -473,7 +452,7 @@ async function initCloud(){if(!inClaude){return}
     const id=await user.id();if(!id){sync='local';paintSync();return}
     const col=db.collection('data/users/'+id);
     const snap=await Promise.race([col.get(),sleep(10000).then(()=>{throw new Error('timeout')})]);
-    const seen={};let changed=false;const B=st0();
+    const seen={};let changed=false;const B=S;
     snap.docs.forEach(d=>{const raw=d.data();if(!raw)return;const b=JSON.parse(JSON.stringify(raw));seen[d.id]=b.u||0;
       if(d.id==='meta'){if((b.u||0)>(B.meta.u||0)){B.meta=normMeta(b);changed=true}}
       else if(d.id.indexOf('m-')===0){const m=d.id.slice(2),loc=B.months[m];if(!loc||(b.u||0)>(loc.u||0)){B.months[m]=b;changed=true}}});
@@ -544,25 +523,18 @@ const agoText=m=>m<1?'adesso':m<60?m+' min fa':Math.floor(m/60)+' h '+(m%60?pad(
 function overdue(){const R=S.meta.rem;if(!R.on)return false;const now=hm2min(nowHM());if(now<hm2min(R.from)||now>hm2min(R.to))return false;
   const a=lastDrinkAgo();return(a==null?now-hm2min(R.from):a)>=R.min}
 
-function insights(k){const out=[],isT=k===today(),st=dayStats(k),R=records(),D=day(k),gp=goalParts(k),rf=refs(),pct=st.goal?st.eff/st.goal*100:0;
-  if(st.eff>0&&R.pb.k===k&&R.days>1)out.push({tone:'good',t:'Nuovo record personale',b:fmt(st.eff)+' ml di idratazione in un giorno: non eri mai arrivato così in alto.'});
-  if(st.caf>rf.caf)out.push({tone:'warn',t:'Caffeina oltre i '+rf.caf+' mg',b:'Sei a '+fmt(st.caf)+' mg, sopra la quantità giornaliera che l’EFSA considera sicura '+(rf.pl?'in gravidanza e allattamento':'per un adulto')+'. Per il resto della giornata meglio acqua o tisane.'});
-  if(st.fs>rf.sug)out.push({tone:'warn',t:'Zuccheri liberi oltre il limite',b:fmt(st.fs)+' g su circa '+rf.sug+' g al giorno: l’OMS raccomanda di restare sotto il 10% dell’energia. Contano anche gli zuccheri dei succhi, non quelli del latte.'});
-  const s=R.streak;
-  if(s>=30)out.push({tone:'good',t:s+' giorni di fila a obiettivo',b:'Un mese intero. Bere a sufficienza è la misura principale che le linee guida europee di urologia (EAU) indicano contro i calcoli renali.'});
-  else if(s>=14)out.push({tone:'good',t:s+' giorni di fila a obiettivo',b:'Utile anche nello sport: perdere in acqua più del 2% del peso corporeo può ridurre la prestazione aerobica (Sawka, ACSM).'});
-  else if(s>=7)out.push({tone:'good',t:s+' giorni di fila a obiettivo',b:'Ne vale la pena: in uno studio su giovani donne, perdere appena l’1,4% del peso in acqua ha peggiorato umore e concentrazione e dato mal di testa (Armstrong 2012).'});
-  else if(s>=3)out.push({tone:'good',t:s+' giorni di fila a obiettivo',b:'L’abitudine sta prendendo forma: conta la costanza, più del singolo giorno.'});
-  if(isT&&pct>=100)out.push({tone:'good',t:'Obiettivo di oggi raggiunto',b:'Hai coperto il fabbisogno stimato'+(s>1?' per il '+s+'º giorno consecutivo':'')+'. Da qui in poi bevi quando hai sete.'});
-  if(isT&&gp.wx>0)out.push({t:'Caldo percepito: '+Math.round(gp.Ta)+' °C',b:'Con questa temperatura durante il giorno si suda di più anche stando fermi: l’obiettivo di oggi sale di '+fmt(gp.wx)+' ml.'});
-  if(isT&&gp.steps>0)out.push({t:fmt(D.s)+' passi',b:'Circa '+Math.round(gp.walkH*60)+' minuti di cammino oltre l’attività normale: l’obiettivo sale di '+fmt(gp.steps)+' ml per il sudore in più.'});
-  if(isT){const h=new Date().getHours();
-    if(h>=16&&D.p.length<=2&&pct<60)out.push({tone:'warn',t:'Poche pause in bagno',b:(D.p.length===1?'Una sola volta':D.p.length+' volte')+' finora; negli adulti sani, di giorno, di solito sono tra 4 e 10. Insieme al poco bevuto è un segnale: un bicchiere adesso aiuta.'});
-    if(overdue()&&pct<100){const a=lastDrinkAgo();out.push({t:'È ora di bere',b:(a==null?'Oggi non hai ancora registrato nulla.':'Ultima bevuta '+agoText(a)+'.')+' Mancano '+fmt(Math.max(0,st.goal-st.eff))+' ml.'})}}
-  const av=avgLast(k,7);
-  if(av.days>=4)out.push({t:'Media di '+litri(av.eff)+' al giorno',b:'È la tua idratazione media negli ultimi 7 giorni ('+av.days+' registrati)'+(av.peeDays>=3?', con circa '+fmt1(av.pee)+' pause in bagno al giorno.':'.')});
-  if(isT&&pct>=50&&pct<100)out.push({t:'Oltre metà strada',b:'Mancano '+fmt(st.goal-st.eff)+' ml: sono circa '+Math.max(1,Math.round((st.goal-st.eff)/250))+' bicchieri.'});
-  if(!out.length)out.push(isT?{t:'Si parte da un bicchiere',b:'Registra la prima bevuta: la goccia qui sopra si riempie man mano che ti avvicini all’obiettivo.'}:{t:'Nessun dato particolare',b:'Per questo giorno non c’è nulla da segnalare.'});
+function insights(k){const out=[],isT=k===today(),st=dayStats(k),R=records(),D=day(k),rf=refs(),pct=st.goal?st.eff/st.goal*100:0,s=R.streak;
+  if(st.eff>0&&R.pb.k===k&&R.days>1)out.push({tone:'good',t:'Nuovo record personale',b:fmt(st.eff)+' ml in un giorno.'});
+  if(st.caf>rf.caf)out.push({tone:'warn',t:'Troppa caffeina',b:fmt(st.caf)+' mg, il limite è '+rf.caf+' mg al giorno.'});
+  if(st.fs>rf.sug)out.push({tone:'warn',t:'Troppi zuccheri',b:fmt(st.fs)+' g, il limite è circa '+rf.sug+' g al giorno.'});
+  if(isT&&pct<100){const h=new Date().getHours();
+    if(overdue()){const a=lastDrinkAgo();out.push({t:'È ora di bere',b:a==null?'Oggi non hai ancora bevuto.':'Ultima bevuta '+agoText(a)+'.'})}
+    if(h>=16&&D.p.length<=2&&pct<60)out.push({tone:'warn',t:'Poche pause in bagno',b:'Insieme al poco bevuto è un segnale: un bicchiere adesso aiuta.'})}
+  if(isT&&pct>=100)out.push({tone:'good',t:'Obiettivo raggiunto',b:s>1?s+' giorni di fila. Ora bevi quando hai sete.':'Ora bevi quando hai sete.'});
+  if(s>=30)out.push({tone:'good',t:s+' giorni di fila',b:'Bere a sufficienza è la prima difesa contro i calcoli renali.'});
+  else if(s>=14)out.push({tone:'good',t:s+' giorni di fila',b:'Perdere più del 2% del peso in acqua riduce la resistenza.'});
+  else if(s>=7)out.push({tone:'good',t:s+' giorni di fila',b:'Anche una lieve disidratazione peggiora umore e concentrazione.'});
+  else if(s>=3)out.push({tone:'good',t:s+' giorni di fila',b:'Conta la costanza, più del singolo giorno.'});
   return out}
 
 /* ================= UI state ================= */
@@ -591,60 +563,53 @@ function tweenLevel(a,b){cancelAnimationFrame(tw);setLevel(a);if(a===b||(window.
 function recents(){const cnt={},q=S.meta.quick;for(let i=0;i<21;i++){for(const e of day(addDays(today(),-i)).e){if(e.d==='acqua'&&q.indexOf(e.ml)>=0)continue;if(drink(e.d)===GONE||drink(e.d).hid)continue;const key=e.d+'|'+e.ml;cnt[key]=(cnt[key]||0)+1}}
   return Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a]).slice(0,4).map(x=>{const a=x.split('|');return{d:a[0],ml:+a[1]}})}
 function vOggi(){const k=ui.date,D=day(k),st=dayStats(k),gp=goalParts(k),isT=k===today(),w=drink('acqua'),si=streakInfo(),pct=st.goal?st.eff/st.goal*100:0;
-  let ins=insights(k)[0];
-  if(DEMO&&isT&&!si.todayMet)ins={t:'Prova la serie',b:'Mancano '+fmt(si.need)+' ml all’obiettivo. Tocca «500 ml» qui sotto: la goccia si accende e la serie passa a '+(si.n+1)+' giorni.'};
+  const ins=insights(k)[0];
   const d=parseKey(k),lab=isT?'Oggi':k===addDays(today(),-1)?'Ieri':DF_SHORT.format(d),lastP=D.p.length?D.p[D.p.length-1]:null;
-  const entries=D.e.slice().sort((a,b)=>hm2min(b.t)-hm2min(a.t)),ago=isT?lastDrinkAgo():null;
-  const status=pct>=100?'Obiettivo raggiunto'+(st.eff>st.goal?' <span>· +'+fmt(st.eff-st.goal)+' ml</span>':''):'Mancano '+fmt(st.goal-st.eff)+' ml'+(ago!=null?' <span>· ultima '+agoText(ago)+'</span>':'');
+  const entries=D.e.slice().sort((a,b)=>hm2min(b.t)-hm2min(a.t));
+  const status=pct>=100?'Obiettivo raggiunto':'Mancano '+fmt(st.goal-st.eff)+' ml';
   let h='<div class="today"><header class="top"><div class="ttl">'
    +'<button class="arw" data-a="day" data-d="-1" aria-label="Giorno precedente">'+ic('left',20)+'</button>'
    +'<button class="datebtn" data-a="today" title="Torna a oggi"><b>'+lab+'</b><span>'+DF_LONG.format(d)+'</span></button>'
    +'<button class="arw" data-a="day" data-d="1" aria-label="Giorno successivo"'+(isT?' disabled':'')+'>'+ic('right',20)+'</button></div>'
    +'<div class="pills"><button class="pill wx" data-a="wx" aria-label="Meteo">'+ic('sun',18)+(D.T!=null?D.T+'°':'')+'</button>'+streakBadge(si)+'</div></header>'
-   +'<section class="gauge">'+dropGauge(st)
-   +'<div class="gstat"><span class="pct'+(pct>=100?' done':'')+'">'+Math.round(pct)+'%</span><p>'+status+'</p></div>'
-   +'<button class="goal-link" data-a="goal">Come si calcola l’obiettivo'+ic('right',14)+'</button></section></div>';
-  h+=demoBar();
-  if(!S.meta.setup)h+='<div class="sec"><div class="card rowc"><div><h3>Obiettivo calcolato su 70 kg</h3><p>Inserisci peso, età e altezza per un obiettivo su misura.</p></div><button class="btn sm pri" data-a="tab" data-tab="prof">Imposta</button></div></div>';
+   +'<section class="gauge"><button class="dropbtn" data-a="goal" aria-label="Dettagli dell’obiettivo">'+dropGauge(st)+'</button>'
+   +'<div class="gstat"><span class="pct'+(pct>=100?' done':'')+'">'+Math.round(pct)+'%</span><p>'+status+'</p></div></section></div>';
+  if(!S.meta.setup)h+='<div class="sec"><div class="card rowc"><div><h3>Imposta il tuo profilo</h3><p>Peso, età e altezza per un obiettivo su misura.</p></div><button class="btn sm pri" data-a="tab" data-tab="prof">Imposta</button></div></div>';
   const rec=recents();
-  h+='<div class="sec"><div class="sh"><h2>Aggiungi acqua</h2></div><div class="qgrid">'
+  h+='<div class="sec"><div class="qgrid">'
    +S.meta.quick.map(ml=>'<button class="qb" data-a="quick" data-d="acqua" data-ml="'+ml+'" aria-label="Aggiungi '+ml+' ml di acqua">'+dIcon(w,42)+'<b>'+ml+'<small>ml</small></b></button>').join('')+'</div>'
    +'<div class="chips">'+rec.map(r=>{const x=drink(r.d);return'<button class="chip" data-a="quick" data-d="'+esc(r.d)+'" data-ml="'+r.ml+'">'+dIcon(x,34)+esc(x.n)+' <b>'+r.ml+'</b></button>'}).join('')
    +'<button class="chip more" data-a="add">'+ic('plus',18)+'Altra bevanda</button></div></div>';
-  h+='<div class="sec">'+insCard(ins)+'</div>';
+  if(ins)h+='<div class="sec">'+insCard(ins)+'</div>';
   h+='<div class="sec"><div class="duo">'
-   +'<div class="mini"><div class="mini-h">'+ic('wc',18)+'Bagno</div><div class="mini-f"><div><b>'+D.p.length+'</b><small>'+(lastP?'alle '+lastP:'nessuna pausa')+'</small></div>'
+   +'<div class="mini"><div class="mini-h">'+ic('wc',18)+'Bagno</div><div class="mini-f"><div><b>'+D.p.length+'</b><small>'+(lastP?'alle '+lastP:'&nbsp;')+'</small></div>'
    +'<div class="rbs"><button class="rb" data-a="pee" data-d="-1" aria-label="Togli una pausa bagno"'+(D.p.length?'':' disabled')+'>'+ic('minus',18)+'</button><button class="rb pri" data-a="pee" data-d="1" aria-label="Aggiungi una pausa bagno">'+ic('plus',18)+'</button></div></div></div>'
-   +'<button class="mini" data-a="goal"><div class="mini-h">'+ic('steps',18)+'Passi</div><div class="mini-f"><div><b>'+(D.s?fmt(D.s):'–')+'</b><small>'+(gp.steps?'+'+fmt(gp.steps)+' ml all’obiettivo':D.s?'nessun extra':'tocca per inserirli')+'</small></div><span class="rb">'+ic('right',18)+'</span></div></button>'
+   +'<button class="mini" data-a="goal"><div class="mini-h">'+ic('steps',18)+'Passi</div><div class="mini-f"><div><b>'+(D.s?fmt(D.s):'–')+'</b><small>'+(gp.steps?'+'+fmt(gp.steps)+' ml':D.s?'&nbsp;':'tocca per inserirli')+'</small></div><span class="rb">'+ic('right',18)+'</span></div></button>'
    +'</div></div>';
-  h+='<div class="sec"><div class="sh"><h2>'+(isT?'Bevute di oggi':'Bevute')+'</h2><span class="note">'+(entries.length?fmt(st.vol)+' ml in '+entries.length+(entries.length===1?' bevuta':' bevute'):'')+'</span></div><div class="card lst"><div class="list">'
+  h+='<div class="sec"><h2>'+(isT?'Bevute di oggi':'Bevute')+'</h2><div class="card lst"><div class="list">'
    +(entries.length?entries.map(e=>{const x=drink(e.d);return'<div class="row"><button class="li" data-a="edit-entry" data-id="'+e.i+'" aria-label="Modifica '+esc(x.n)+' delle '+e.t+'">'+dIcon(x,42)
-      +'<span class="g1"><b>'+esc(x.n)+'</b><small>'+e.t+(x.k>=1?' · '+fmt(e.ml/100*x.k)+' kcal':'')+(x.c?' · '+fmt(e.ml/100*x.c)+' mg caffeina':'')+'</small></span>'
-      +'<span class="ml">'+fmt(e.ml)+' ml'+(x.h!==100?'<small>idrata '+fmt(e.ml*x.h/100)+'</small>':'')+'</span></button>'
+      +'<span class="g1"><b>'+esc(x.n)+'</b><small>'+e.t+'</small></span>'
+      +'<span class="ml">'+fmt(e.ml)+' ml</span></button>'
       +'<button class="del" data-a="del" data-id="'+e.i+'" aria-label="Elimina '+esc(x.n)+' '+e.ml+' ml delle '+e.t+'">'+ic('trash',20)+'</button></div>'}).join('')
-     :'<p class="empty">Nessuna bevuta'+(isT?' oggi':'')+'. Tocca un formato qui sopra per iniziare.</p>')
-   +'</div></div>'+(entries.length?'<p class="note">Tocca una bevuta per modificarla, il cestino per eliminarla.</p>':'')+'</div>';
+     :'<p class="empty">Nessuna bevuta'+(isT?' oggi':'')+'.</p>')
+   +'</div></div></div>';
   return h}
 
 function gauge(label,val,ref,unit,lim){const p=ref?val/ref*100:0,cls=lim?(p>100?'crit':p>80?'warn':''):'';
-  return'<div class="g '+cls+'"><div class="g-h"><span>'+label+(cls==='crit'?'<span class="tag">oltre il limite</span>':cls==='warn'?'<span class="tag">vicino al limite</span>':'')+'</span><b>'+(val<10&&val>0?fmt1(val):fmt(val))+' <small>/ '+fmt(ref)+' '+unit+' · '+Math.round(p)+'%</small></b></div><div class="g-bar"><i style="width:'+clamp(p,0,100).toFixed(1)+'%"></i></div></div>'}
-function vNut(){const k=ui.date,st=dayStats(k),rf=refs(),isT=k===today(),D=day(k);
+  return'<div class="g '+cls+'"><div class="g-h"><span>'+label+'</span><b>'+(val<10&&val>0?fmt1(val):fmt(val))+' <small>/ '+fmt(ref)+' '+unit+'</small></b></div><div class="g-bar"><i style="width:'+clamp(p,0,100).toFixed(1)+'%"></i></div></div>'}
+function vNut(){const k=ui.date,st=dayStats(k),rf=refs(),isT=k===today();
   const by=Object.keys(st.by).sort((a,b)=>st.by[b]-st.by[a]);
-  let h='<header class="ph"><h1>Nutrienti</h1><p>'+(isT?'Oggi':DF_WD.format(parseKey(k)))+'<br>dalle sole bevande</p></header>'+demoBar();
-  h+='<div class="sec"><div class="tiles"><div class="tile"><small>Liquidi bevuti</small><b>'+fmt(st.vol)+' <span>ml</span></b><em>'+st.n+(st.n===1?' bevuta':' bevute')+'</em></div>'
-    +'<div class="tile"><small>Idratazione effettiva</small><b>'+fmt(st.eff)+' <span>ml</span></b><em>'+(st.vol?Math.round(st.eff/st.vol*100):0)+'% dei liquidi</em></div></div></div>';
-  h+='<div class="sec"><h2>Razione giornaliera</h2><div class="card">'
-    +gauge('Calorie',st.kcal,rf.tdee,'kcal')+gauge('Carboidrati',st.cb,rf.cb,'g')+gauge('Proteine',st.p,rf.p,'g')+gauge('Grassi',st.f,rf.f,'g')
-    +'</div><p class="note">Fabbisogno: metabolismo a riposo (Mifflin-St Jeor) × livello di attività EFSA '+String(rf.pal).replace('.',',')+' = '+fmt(rf.tdee)+' kcal al giorno. Carboidrati e grassi: valore centrale degli intervalli EFSA (45–60% e 20–35% dell’energia); proteine 0,83 g per kg.</p></div>';
-  h+='<div class="sec"><h2>Dose massima giornaliera</h2><div class="card">'+gauge('Caffeina',st.caf,rf.caf,'mg',1)+gauge('Zuccheri liberi',st.fs,rf.sug,'g',1)
-    +(st.alc>0?'<div class="g"><div class="g-h"><span>Alcol</span><b>'+fmt1(st.alc)+' <small>g · '+fmt1(st.alc/12)+' unità alcoliche</small></b></div></div>':'')
-    +'</div><p class="note">Caffeina: '+rf.caf+' mg al giorno (EFSA'+(rf.pl?', gravidanza e allattamento':'')+'). Zuccheri liberi: meno del 10% dell’energia (OMS); contano quelli aggiunti e quelli dei succhi, non quelli del latte.'+(st.alc>0?' Un’unità alcolica = 12 g di alcol.':'')+'</p></div>';
-  h+='<div class="sec"><h2>Per bevanda</h2><div class="card">'+(by.length?'<div class="tw"><table><thead><tr><th>Bevanda</th><th>ml</th><th>kcal</th><th>zucch.</th><th>caff.</th></tr></thead><tbody>'
-    +by.map(id=>{const d=drink(id),ml=st.by[id],q=ml/100;return'<tr><td>'+esc(d.n)+'</td><td>'+fmt(ml)+'</td><td>'+fmt(q*d.k)+'</td><td>'+fmt1(q*d.s)+' g</td><td>'+fmt(q*d.c)+' mg</td></tr>'}).join('')
-    +'</tbody></table></div>':'<p class="empty">Nessuna bevuta registrata in questo giorno.</p>')+'</div></div>';
+  let h='<header class="ph"><h1>Nutrienti</h1><p>'+(isT?'Oggi':DF_WD.format(parseKey(k)))+'</p></header>';
+  h+='<div class="sec"><div class="card">'
+    +gauge('Calorie',st.kcal,rf.tdee,'kcal')+gauge('Proteine',st.p,rf.p,'g')+gauge('Zuccheri',st.fs,rf.sug,'g',1)+gauge('Caffeina',st.caf,rf.caf,'mg',1)
+    +(st.alc>0?'<div class="g"><div class="g-h"><span>Alcol</span><b>'+fmt1(st.alc/12)+' <small>unità</small></b></div></div>':'')
+    +'</div></div>';
+  h+='<div class="sec"><h2>Per bevanda</h2><div class="card">'+(by.length?'<div class="tw"><table><thead><tr><th>Bevanda</th><th>ml</th><th>kcal</th></tr></thead><tbody>'
+    +by.map(id=>{const d=drink(id),ml=st.by[id];return'<tr><td>'+esc(d.n)+'</td><td>'+fmt(ml)+'</td><td>'+fmt(ml/100*d.k)+'</td></tr>'}).join('')
+    +'</tbody></table></div>':'<p class="empty">Nessuna bevuta.</p>')+'</div></div>';
   return h}
 
-const MET={eff:{l:'Idratazione',u:'ml',f:s=>s.eff,goal:1},kcal:{l:'Calorie',u:'kcal',f:s=>s.kcal},caf:{l:'Caffeina',u:'mg',f:s=>s.caf},sug:{l:'Zuccheri liberi',u:'g',f:s=>s.fs},pee:{l:'Bagno',u:'volte',f:s=>s.pee,int:1},steps:{l:'Passi',u:'passi',f:s=>s.steps,int:1}};
+const MET={eff:{l:'Idratazione',u:'ml',f:s=>s.eff,goal:1},kcal:{l:'Calorie',u:'kcal',f:s=>s.kcal},caf:{l:'Caffeina',u:'mg',f:s=>s.caf},pee:{l:'Bagno',u:'volte',f:s=>s.pee,int:1},steps:{l:'Passi',u:'passi',f:s=>s.steps,int:1}};
 const monday=k=>{const d=parseKey(k);d.setDate(d.getDate()-((d.getDay()+6)%7));return dkey(d)};
 function periodKeys(){const out=[];if(ui.range==='week'){const m=monday(ui.anchor);for(let i=0;i<7;i++)out.push(addDays(m,i))}
   else{const d=parseKey(ui.anchor),y=d.getFullYear(),mo=d.getMonth(),n=new Date(y,mo+1,0).getDate();for(let i=1;i<=n;i++)out.push(dkey(new Date(y,mo,i)))}return out}
@@ -663,65 +628,58 @@ function barChart(keys,M,sel){const W=340,H=196,L=36,R=6,T=18,B=24,pw=W-L-R,ph=H
     const dn=parseKey(k).getDate();if(wk||dn===1||dn%5===0)s+='<text x="'+cx+'" y="'+(H-7)+'" text-anchor="middle">'+(wk?WD[i]:dn)+'</text>';
     s+='<rect class="hitbox" x="'+(L+slot*i)+'" y="'+T+'" width="'+slot+'" height="'+(ph+B)+'"/></g>'});
   return s+'</svg>'}
-function vStat(){const keys=periodKeys(),t=today(),M=MET[ui.metric],R=records();
+function vStat(){const keys=periodKeys(),t=today(),M=MET[ui.metric]||MET.eff,R=records();
   const past=keys.filter(k=>k<=t);let sel=ui.sel&&keys.indexOf(ui.sel)>=0?ui.sel:null;
   if(!sel){sel=keys.indexOf(t)>=0?t:null;if(!sel){const w=past.filter(k=>dayStats(k).n);sel=w.length?w[w.length-1]:(past[past.length-1]||keys[0])}}
   const stats=past.map(k=>dayStats(k)),withData=stats.filter(s=>s.n||s.pee||s.steps);
   const tot=stats.reduce((a,s)=>a+M.f(s),0),hit=stats.filter(s=>s.n&&s.eff>=s.goal).length,avg=withData.length?tot/withData.length:0;
   const label=ui.range==='week'?DF_SHORT.format(parseKey(keys[0]))+' – '+DF_SHORT.format(parseKey(keys[6])):DF_MONTH.format(parseKey(keys[0]));
   const nextDis=keys[keys.length-1]>=t,ss=sel&&sel<=t?dayStats(sel):null;
-  const by={};past.forEach(k=>{const b=dayStats(k).by;for(const id in b)by[id]=(by[id]||0)+b[id]});const ids=Object.keys(by).sort((a,b)=>by[b]-by[a]),bmax=ids.length?by[ids[0]]:1,btot=ids.reduce((a,i)=>a+by[i],0);
-  let h='<header class="ph"><h1>Storico</h1><p>'+R.days+(R.days===1?' giorno registrato':' giorni registrati')+'</p></header>'+demoBar();
+  const by={};past.forEach(k=>{const b=dayStats(k).by;for(const id in b)by[id]=(by[id]||0)+b[id]});const ids=Object.keys(by).sort((a,b)=>by[b]-by[a]),bmax=ids.length?by[ids[0]]:1;
+    let h='<header class="ph"><h1>Storico</h1></header>';
   h+='<div class="sec"><div class="seg"><button data-a="range" data-r="week" aria-pressed="'+(ui.range==='week')+'">Settimana</button><button data-a="range" data-r="month" aria-pressed="'+(ui.range==='month')+'">Mese</button></div>'
     +'<div class="pernav"><button class="icb" data-a="per" data-d="-1" aria-label="Periodo precedente">'+ic('left')+'</button><b>'+label+'</b><button class="icb" data-a="per" data-d="1" aria-label="Periodo successivo"'+(nextDis?' disabled':'')+'>'+ic('right')+'</button></div>'
     +'<div class="chips">'+Object.keys(MET).map(m=>'<button class="chip txt" data-a="metric" data-m="'+m+'" aria-pressed="'+(m===ui.metric)+'">'+MET[m].l+'</button>').join('')+'</div>'
-    +'<div class="card">'+barChart(keys,M,sel)
-    +(M.goal?'<div class="legend"><span><i></i>obiettivo raggiunto</span><span><i class="l2"></i>sotto obiettivo</span><span><i class="l3"></i>obiettivo del giorno</span></div>':'')+'</div>';
-  if(ss)h+='<div class="card rowc"><div><h3>'+DF_WD.format(parseKey(sel))+'</h3><p>'+fmt(ss.eff)+' ml su '+fmt(ss.goal)+' · '+fmt(ss.kcal)+' kcal · bagno '+ss.pee+(ss.steps?' · '+fmt(ss.steps)+' passi':'')+'</p></div><button class="btn sm" data-a="open-day" data-k="'+sel+'">Apri</button></div>';
+    +'<div class="card">'+barChart(keys,M,sel)+'</div>';
+  if(ss)h+='<button class="card rowc" data-a="open-day" data-k="'+sel+'" style="width:100%;text-align:left"><div><h3>'+DF_WD.format(parseKey(sel))+'</h3><p>'+fmt(M.f(ss))+' '+M.u+(M.goal?' su '+fmt(ss.goal):'')+'</p></div><span class="rb">'+ic('right',18)+'</span></button>';
   h+='</div>';
-  h+='<div class="sec"><div class="tiles"><div class="tile"><small>Media al giorno</small><b>'+fmt(avg)+' <span>'+M.u+'</span></b><em>su '+withData.length+(withData.length===1?' giorno':' giorni')+' con dati</em></div>'
-    +'<div class="tile"><small>Giorni a obiettivo</small><b>'+hit+' <span>su '+past.length+'</span></b><em>nel periodo</em></div></div></div>';
-  h+='<div class="sec"><h2>Record personali</h2><div class="tiles">'
-    +'<div class="tile"><small>PB idratazione in un giorno</small><b>'+fmt(R.pb.v)+' <span>ml</span></b><em>'+(R.pb.k?DF_WD.format(parseKey(R.pb.k)):'ancora da stabilire')+'</em></div>'
-    +'<div class="tile"><small>PB acqua in un giorno</small><b>'+fmt(R.pbw.v)+' <span>ml</span></b><em>'+(R.pbw.k?DF_WD.format(parseKey(R.pbw.k)):'ancora da stabilire')+'</em></div>'
-    +'<button class="tile" data-a="streak"><small>Serie attuale</small><b style="display:flex;align-items:center;gap:4px">'+dropSvg(R.streak?(metNow()?'on':'risk'):'off',26)+R.streak+' <span>'+(R.streak===1?'giorno':'giorni')+'</span></b><em>tocca per i dettagli</em></button>'
-    +'<div class="tile"><small>Serie più lunga</small><b>'+R.longest+' <span>'+(R.longest===1?'giorno':'giorni')+'</span></b><em>totale bevuto: '+litri(R.tot)+'</em></div></div></div>';
-  h+='<div class="sec"><h2>Bevande del periodo</h2><div class="card">'+(ids.length?'<div class="dist">'+ids.map(id=>{const d=drink(id);return'<span class="nm">'+dIcon(d,26)+esc(d.n)+'</span><span class="bar"><i style="width:'+(by[id]/bmax*100).toFixed(1)+'%;background:'+okCol(d.col)+'"></i></span><span class="v">'+fmt(by[id])+' ml · '+Math.round(by[id]/btot*100)+'%</span>'}).join('')+'</div>':'<p class="empty">Nessuna bevuta in questo periodo.</p>')+'</div></div>';
-  h+='<div class="sec"><h2>Come sta andando</h2>'+insights(t).map(insCard).join('')+'</div>';
+  h+='<div class="sec"><div class="tiles"><div class="tile"><small>Media al giorno</small><b>'+fmt(avg)+' <span>'+M.u+'</span></b></div>'
+    +'<div class="tile"><small>Giorni a obiettivo</small><b>'+hit+' <span>su '+past.length+'</span></b></div></div></div>';
+  h+='<div class="sec"><h2>Record</h2><div class="tiles">'
+    +'<div class="tile"><small>Idratazione</small><b>'+fmt(R.pb.v)+' <span>ml</span></b>'+(R.pb.k?'<em>'+DF_WD.format(parseKey(R.pb.k))+'</em>':'')+'</div>'
+    +'<div class="tile"><small>Acqua</small><b>'+fmt(R.pbw.v)+' <span>ml</span></b>'+(R.pbw.k?'<em>'+DF_WD.format(parseKey(R.pbw.k))+'</em>':'')+'</div>'
+    +'<button class="tile" data-a="streak"><small>Serie attuale</small><b style="display:flex;align-items:center;gap:4px">'+dropSvg(R.streak?(metNow()?'on':'risk'):'off',26)+R.streak+'</b></button>'
+    +'<div class="tile"><small>Serie più lunga</small><b>'+R.longest+' <span>'+(R.longest===1?'giorno':'giorni')+'</span></b></div></div></div>';
+  if(ids.length)h+='<div class="sec"><h2>Bevande</h2><div class="card"><div class="dist">'+ids.map(id=>{const d=drink(id);return'<span class="nm">'+dIcon(d,26)+esc(d.n)+'</span><span class="bar"><i style="width:'+(by[id]/bmax*100).toFixed(1)+'%;background:'+okCol(d.col)+'"></i></span><span class="v">'+litri(by[id])+'</span>'}).join('')+'</div></div></div>';
   return h}
 
 function vProf(){const P=S.meta.profile,R=S.meta.rem,gp=goalParts(today()),nt=('Notification'in window)?Notification.permission:'none';
-  const standalone=(window.navigator.standalone===true)||(window.matchMedia&&window.matchMedia('(display-mode: standalone)').matches);
   const opt=(v,l,cur)=>'<option value="'+v+'"'+(String(v)===String(cur)?' selected':'')+'>'+l+'</option>';
-  let h='<header class="ph"><h1>Profilo</h1><p>solo tu,<br>solo per te</p></header>'+demoBar();
+  let h='<header class="ph"><h1>Profilo</h1></header>';
   h+='<div class="sec"><h2>I tuoi dati</h2><div class="card form">'
     +'<div class="field"><label for="p-sex">Sesso</label><select id="p-sex" data-c="p.sex">'+opt('m','Uomo',P.sex)+opt('f','Donna',P.sex)+'</select></div>'
     +'<div class="field"><label for="p-age">Età</label><input id="p-age" data-c="p.age" type="number" inputmode="numeric" min="14" max="100" value="'+P.age+'"></div>'
     +'<div class="field"><label for="p-kg">Peso (kg)</label><input id="p-kg" data-c="p.kg" type="number" inputmode="decimal" min="30" max="250" step="0.5" value="'+P.kg+'"></div>'
     +'<div class="field"><label for="p-cm">Altezza (cm)</label><input id="p-cm" data-c="p.cm" type="number" inputmode="numeric" min="120" max="230" value="'+P.cm+'"></div>'
     +(P.sex==='f'?'<div class="field full"><label for="p-cond">Gravidanza o allattamento</label><select id="p-cond" data-c="p.cond">'+opt('','No',P.cond||'')+opt('preg','In gravidanza',P.cond||'')+opt('lact','Allatto',P.cond||'')+'</select></div>':'')
-    +'<div class="field full"><label for="p-act">Attività abituale (livelli EFSA)</label><select id="p-act" data-c="p.act">'+opt(1,'Poco attivo, PAL 1,4',P.act)+opt(2,'Moderatamente attivo, PAL 1,6',P.act)+opt(3,'Attivo, PAL 1,8',P.act)+opt(4,'Molto attivo, PAL 2,0',P.act)+'</select></div></div></div>';
-  h+='<div class="sec"><h2>Obiettivo di base</h2><div class="card form">'
-    +'<div class="field"><label for="g-mode">Calcolo</label><select id="g-mode" data-c="goalMode">'+opt('auto','Automatico (EFSA)',S.meta.goalMode)+opt('manual','Manuale',S.meta.goalMode)+'</select></div>'
+    +'<div class="field full"><label for="p-act">Attività abituale</label><select id="p-act" data-c="p.act">'+opt(1,'Poco attivo',P.act)+opt(2,'Moderatamente attivo',P.act)+opt(3,'Attivo',P.act)+opt(4,'Molto attivo',P.act)+'</select></div></div></div>';
+  h+='<div class="sec"><h2>Obiettivo</h2><div class="card form">'
+    +'<div class="field"><label for="g-mode">Calcolo</label><select id="g-mode" data-c="goalMode">'+opt('auto','Automatico',S.meta.goalMode)+opt('manual','Manuale',S.meta.goalMode)+'</select></div>'
     +'<div class="field"><label for="g-man">Base (ml)</label><input id="g-man" data-c="manual" type="number" inputmode="numeric" min="500" max="6000" step="50" value="'+(S.meta.goalMode==='manual'?S.meta.manual:gp.base)+'"'+(S.meta.goalMode==='manual'?'':' disabled')+'></div>'
-    +'<div class="field full"><label for="q-sz">Formati rapidi dell’acqua (ml, separati da virgola)</label><input id="q-sz" data-c="quick" type="text" inputmode="numbers-and-punctuation" value="'+S.meta.quick.join(', ')+'"></div></div>'
-    +'<p class="note">Base: assunzione adeguata EFSA di '+fmt1(baseAI()/1000)+' L al giorno tra cibo e bevande, di cui circa l’80% da bere. Ogni giorno si aggiungono passi e caldo. Sono stime per orientarsi, non un parere medico.</p></div>';
-  h+='<div class="sec"><h2>Come calcolo</h2><div class="card rowc"><div><h3>Fonti e metodo</h3><p>Le ricerche e le banche dati usate per obiettivo, serie e bevande.</p></div><button class="btn sm" data-a="sources">Apri</button></div></div>';
+    +'<div class="field full"><label for="q-sz">Formati rapidi dell’acqua (ml)</label><input id="q-sz" data-c="quick" type="text" inputmode="numbers-and-punctuation" value="'+S.meta.quick.join(', ')+'"></div></div></div>';
   h+='<div class="sec"><h2>Promemoria</h2><div class="card form">'
     +'<div class="field"><label for="r-on">Stato</label><select id="r-on" data-c="rem.on">'+opt('1','Attivi',R.on?'1':'0')+opt('0','Spenti',R.on?'1':'0')+'</select></div>'
     +'<div class="field"><label for="r-min">Ogni</label><select id="r-min" data-c="rem.min">'+[30,45,60,90,120,180].map(m=>opt(m,m<60?m+' minuti':(m/60).toLocaleString('it-IT')+(m===60?' ora':' ore'),R.min)).join('')+'</select></div>'
     +'<div class="field"><label for="r-from">Dalle</label><input id="r-from" data-c="rem.from" type="time" value="'+R.from+'"></div>'
     +'<div class="field"><label for="r-to">Alle</label><input id="r-to" data-c="rem.to" type="time" value="'+R.to+'"></div>'
     +(nt==='default'?'<div class="field full"><button class="btn" data-a="notif">Attiva le notifiche</button></div>':'')
-    +'</div><p class="note">'+(nt==='granted'?'Notifiche attive: arrivano mentre l’app è aperta o in secondo piano da poco.':'L’avviso compare nella schermata Oggi quando è passato troppo tempo dall’ultima bevuta.')+' Un sito web non può svegliare il telefono ad app chiusa.</p></div>';
-  h+='<div class="sec"><div class="sh"><h2>Le tue bevande</h2><button class="link" data-a="new-drink">Nuova bevanda</button></div><div class="card"><div class="list">'
-    +GROUPS.map(gr=>{const ds=S.meta.drinks.filter(d=>grpOf(d)===gr[0]);return ds.length?'<p class="lgh">'+gr[1]+'</p>'+ds.map(d=>'<button class="li" data-a="edit-drink" data-id="'+esc(d.id)+'"'+(d.hid?' style="opacity:.5"':'')+'>'+dIcon(d,40)+'<span class="g1"><b>'+esc(d.n)+(d.hid?' (nascosta)':'')+'</b><small>'+fmt1(d.k)+' kcal · '+fmt1(d.s)+' g zuccheri'+(d.c?' · '+fmt(d.c)+' mg caffeina':'')+' per 100 ml</small></span><span class="ml">'+d.h+'%<small>idrata</small></span></button>').join(''):''}).join('')
-    +'</div></div><p class="note">Idratazione = acqua contenuta nella bevanda. Caffè, tè e birra contano per intero; vino e superalcolici contano zero. Aprendo una bevanda vedi la fonte dei valori e puoi correggerli.</p></div>';
-  h+='<div class="sec"><h2>Demo</h2><div class="card rowc"><div><h3>'+(DEMO?'Stai guardando la demo':'Guarda l’app con dati di esempio')+'</h3><p>'+(DEMO?'Quattro settimane inventate. Uscendo ritrovi i tuoi dati intatti.':'Quattro settimane di bevute e una serie di 12 giorni. I tuoi dati non vengono toccati.')+'</p></div><button class="btn sm '+(DEMO?'':'pri')+'" data-a="'+(DEMO?'demo-off':'demo-on')+'">'+(DEMO?'Esci':'Apri la demo')+'</button></div></div>';
-  h+='<div class="sec"><h2>Dati</h2><div class="card" style="display:flex;flex-direction:column;gap:10px">'
-    +(DEMO?'<p class="note">Esci dalla demo per esportare, importare o cancellare i tuoi dati.</p>':'<p class="note" id="sync">'+syncText()+'</p>'
-    +'<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn sm" data-a="export">Esporta backup</button><button class="btn sm" data-a="import">Importa backup</button><button class="btn sm danger" data-a="reset">'+(ui.resetArm?'Tocca di nuovo per cancellare tutto':'Cancella tutto')+'</button></div>')+'</div>'
-    +(!inClaude&&!standalone?'<div class="card"><h3 style="font-size:15px">Installa sul telefono</h3><p class="note" style="margin-top:4px">iPhone: apri questa pagina in Safari, tocca Condividi (o ··· e poi Condividi), scorri e scegli «Aggiungi alla schermata Home», lascia attivo «Apri come app web» e tocca Aggiungi. Android: menu di Chrome, «Installa app».</p></div>':'')+'</div>';
+    +'</div></div>';
+  h+='<div class="sec"><div class="sh"><h2>Bevande</h2><button class="link" data-a="new-drink">Nuova</button></div><div class="card"><div class="list">'
+    +GROUPS.map(gr=>{const ds=S.meta.drinks.filter(d=>grpOf(d)===gr[0]);return ds.length?'<p class="lgh">'+gr[1]+'</p>'+ds.map(d=>'<button class="li" data-a="edit-drink" data-id="'+esc(d.id)+'"'+(d.hid?' style="opacity:.5"':'')+'>'+dIcon(d,40)+'<span class="g1"><b>'+esc(d.n)+(d.hid?' (nascosta)':'')+'</b></span>'+ic('right',18)+'</button>').join(''):''}).join('')
+    +'</div></div></div>';
+  h+='<div class="sec"><h2>Dati</h2><div class="card" style="display:flex;gap:8px;flex-wrap:wrap">'
+    +'<button class="btn sm" data-a="export">Esporta backup</button><button class="btn sm" data-a="import">Importa backup</button><button class="btn sm danger" data-a="reset">'+(ui.resetArm?'Tocca di nuovo per cancellare tutto':'Cancella tutto')+'</button></div></div>';
+  h+='<div class="sec"><button class="btn ghost wide" data-a="sources">Fonti e metodo</button></div>';
   return h}
 
 /* ================= sheets ================= */
@@ -730,7 +688,7 @@ function sumLine(){const s=ui.sheet,d=drink(s.d),q=s.ml/100,parts=[];
   return esc(d.n)+' '+fmt(s.ml)+' ml → idrata '+fmt(s.ml*d.h/100)+' ml<small>'+(parts.length?parts.join(' · '):'Nessuna caloria, zucchero o caffeina')+'</small>'}
 function shAdd(){const s=ui.sheet,d=drink(s.d),list=S.meta.drinks.filter(x=>!x.hid||x.id===s.d),sizes=d.sz&&d.sz.length?d.sz:[200,250,330,500];
   return'<div class="sheet-h"><h2>'+(s.edit?'Modifica bevuta':'Aggiungi bevanda')+'</h2><button class="icb" data-a="close" aria-label="Chiudi">'+ic('x',18)+'</button></div>'
-   +'<div class="dgrid">'+GROUPS.map(gr=>{const ds=list.filter(x=>grpOf(x)===gr[0]);return ds.length?'<p class="dgh">'+gr[1]+'</p>'+ds.map(x=>'<button class="dcell" data-a="pick" data-d="'+esc(x.id)+'" aria-pressed="'+(x.id===s.d)+'">'+dIcon(x,46)+'<span>'+esc(x.n)+'</span><small>idrata '+x.h+'%</small></button>').join(''):''}).join('')+'</div>'
+   +'<div class="dgrid">'+GROUPS.map(gr=>{const ds=list.filter(x=>grpOf(x)===gr[0]);return ds.length?'<p class="dgh">'+gr[1]+'</p>'+ds.map(x=>'<button class="dcell" data-a="pick" data-d="'+esc(x.id)+'" aria-pressed="'+(x.id===s.d)+'">'+dIcon(x,46)+'<span>'+esc(x.n)+'</span></button>').join(''):''}).join('')+'</div>'
    +'<div class="field"><label for="f-ml">Quantità</label><div class="mlrow"><input id="f-ml" data-i="ml" type="number" inputmode="numeric" min="5" max="3000" step="5" value="'+s.ml+'"><span>ml</span></div></div>'
    +'<div class="chips">'+sizes.map(z=>'<button class="chip txt" data-a="size" data-ml="'+z+'" aria-pressed="'+(z===s.ml)+'"><b>'+z+'</b> ml</button>').join('')+'</div>'
    +'<input id="f-range" data-i="mlr" type="range" min="10" max="1000" step="10" value="'+clamp(s.ml,10,1000)+'" aria-label="Quantità in millilitri">'
@@ -746,8 +704,8 @@ function shWx(){const D=day(ui.date),isT=ui.date===today(),W=S.meta.wx;
    +(isT?'<div class="card" style="display:flex;flex-direction:column;gap:10px"><h3 style="font-size:15px">Rilevamento automatico</h3>'
      +'<button class="btn wide" data-a="wx-geo">Usa la mia posizione</button>'
      +'<div class="field"><label for="w-city">Oppure una città</label><div style="display:flex;gap:8px"><input id="w-city" type="text" value="'+esc(W.city||'')+'" placeholder="es. Atene"><button class="btn" data-a="wx-city">Cerca</button></div></div>'
-     +'<p class="note" id="w-msg">'+(inClaude?'Dentro Claude la pagina non può leggere posizione e meteo in rete: qui inserisci i valori a mano. Nella versione installata il rilevamento è automatico (dati Open-Meteo, media delle ore 8–20).':W.auto?'Attivo: i valori si aggiornano a ogni apertura (dati Open-Meteo, media delle ore 8–20).':'Dati Open-Meteo, media delle ore 8–20, nessun account richiesto.')+'</p></div>':'')
-   +'<p class="note">Inserisci la temperatura delle ore di giorno dove passi la giornata; se stai al chiuso con l’aria condizionata, lascia vuoto. Da temperatura e umidità calcolo la temperatura percepita (indice di calore NOAA); l’extra è il sudore in più a riposo per 12 ore rispetto a 20 °C, secondo il modello del rapporto IOM 2005.</p>'}
+     +'<p class="note" id="w-msg">'+(inClaude?'Il rilevamento automatico funziona solo nell’app installata.':W.auto?'Attivo'+(W.city?' su '+esc(W.city):'')+'. Dati Open-Meteo.':'Dati Open-Meteo.')+'</p></div>':'')
+   +'<p class="note">Se passi la giornata al chiuso con l’aria condizionata, lascia vuoto.</p>'}
 function shDrink(){const s=ui.sheet,d=s.dr,nw=!s.id,opt=(v,l,cur)=>'<option value="'+v+'"'+(v===cur?' selected':'')+'>'+l+'</option>';const f=(id,l,v,step,full)=>'<div class="field'+(full?' full':'')+'"><label for="d-'+id+'">'+l+'</label><input id="d-'+id+'" type="number" inputmode="decimal" min="0" step="'+(step||'0.1')+'" value="'+v+'"></div>';
   return'<div class="sheet-h"><h2>'+(nw?'Nuova bevanda':'Modifica bevanda')+'</h2><button class="icb" data-a="close" aria-label="Chiudi">'+ic('x',18)+'</button></div>'
    +'<div class="form"><div class="field full"><label for="d-n">Nome</label><input id="d-n" type="text" maxlength="30" value="'+esc(d.n)+'"></div>'
@@ -762,12 +720,11 @@ function shDrink(){const s=ui.sheet,d=s.dr,nw=!s.id,opt=(v,l,cur)=>'<option valu
 function shGoal(){const k=ui.date,D=day(k),gp=goalParts(k),isT=k===today();
   return'<div class="sheet-h"><h2>Obiettivo '+(isT?'di oggi':'del giorno')+'</h2><button class="icb" data-a="close" aria-label="Chiudi">'+ic('x',18)+'</button></div>'
    +'<div class="card"><dl class="kv">'
-   +'<dt>Base<small>'+(S.meta.goalMode==='manual'?'impostata a mano in Profilo':'EFSA: '+fmt1(gp.ai/1000)+' L al giorno tra cibo e bevande; da bere circa l’80%')+'</small></dt><dd>'+fmt(gp.base)+' ml</dd>'
-   +'<dt><label for="steps">Passi</label><small>Oltre i 7.500 passi: sudore del cammino (circa 100 passi al minuto) secondo il modello IOM</small><div class="inl"><input id="steps" data-c="steps" type="number" inputmode="numeric" min="0" max="100000" step="100" placeholder="es. 9000" value="'+(D.s||'')+'"></div></dt><dd>+'+fmt(gp.steps)+' ml</dd>'
-   +'<dt>Caldo<small>'+(D.T!=null?'Media diurna '+D.T+' °C'+(D.H!=null?', umidità '+D.H+'%':'')+' · percepita '+Math.round(gp.Ta)+' °C':'Non impostato')+'</small><div class="inl"><button class="btn sm" data-a="wx">'+(D.T!=null?'Modifica':'Imposta')+'</button></div></dt><dd>+'+fmt(gp.wx)+' ml</dd>'
+   +'<dt>Base<small>'+(S.meta.goalMode==='manual'?'impostata a mano':'in base al profilo')+'</small></dt><dd>'+fmt(gp.base)+' ml</dd>'
+   +'<dt><label for="steps">Passi</label><small>oltre i 7.500</small><div class="inl"><input id="steps" data-c="steps" type="number" inputmode="numeric" min="0" max="100000" step="100" placeholder="es. 9000" value="'+(D.s||'')+'"></div></dt><dd>+'+fmt(gp.steps)+' ml</dd>'
+   +'<dt>Caldo<small>'+(D.T!=null?D.T+' °C'+(D.H!=null?', '+D.H+'%':''):'non impostato')+'</small><div class="inl"><button class="btn sm" data-a="wx">'+(D.T!=null?'Modifica':'Imposta')+'</button></div></dt><dd>+'+fmt(gp.wx)+' ml</dd>'
    +'<dt class="tot">Totale</dt><dd class="tot">'+fmt(gp.total)+' ml</dd></dl></div>'
-   +'<p class="note">Conta l’acqua contenuta in ogni bevanda: caffè, tè e birra per intero, vino e superalcolici zero. Stime per adulti sani, non un parere medico.</p>'
-   +'<button class="btn wide" data-a="sources">Fonti e metodo</button>'}
+   +'<button class="btn ghost wide" data-a="sources">Fonti e metodo</button>'}
 const SRC=[
  ['EFSA (2010), valori di riferimento per l’acqua','Base: 2,5 L per gli uomini e 2,0 L per le donne al giorno, tra cibo e bevande, con temperatura e attività moderate; +300 ml in gravidanza, +700 ml in allattamento.','https://www.efsa.europa.eu/en/efsajournal/pub/1459'],
  ['Commissione europea, raccomandazioni sull’acqua','Quota da bere: circa l’80% del totale (2,0 L e 1,6 L, gli stessi valori della British Dietetic Association).','https://knowledge4policy.ec.europa.eu/health-promotion-knowledge-gateway/defining-water-recommendations-3_en'],
@@ -796,9 +753,9 @@ function shSources(){
    +'<p class="note">Stime per adulti sani dai 14 anni, pensate per motivare, non un dispositivo medico. Con malattie renali o cardiache, o terapie che limitano i liquidi, segui le indicazioni del medico.</p>'}
 function shStreak(){const si=streakInfo(),t=today(),mon=monday(t),WD=['L','M','M','G','V','S','D'];
   const next=MS.find(m=>m>si.n),prev=MS.filter(m=>m<=si.n).pop()||0;let msg,tone='';
-  if(si.todayMet){tone='good';msg='<b>Goccia accesa: serie salvata per oggi.</b>Domani raggiungi di nuovo l’obiettivo per arrivare a '+(si.n+1)+(si.n+1===1?' giorno.':' giorni.')}
-  else if(si.n>0){tone='warn';msg='<b>La goccia si sta asciugando.</b>Mancano '+fmt(si.need)+' ml all’obiettivo e '+hl(si.left)+' a mezzanotte. Raggiungilo per arrivare a '+(si.n+1)+' giorni, altrimenti la serie torna a 0.'}
-  else msg='<b>Accendi la goccia.</b>Raggiungi l’obiettivo di oggi (mancano '+fmt(si.need)+' ml) e la serie parte da 1.';
+  if(si.todayMet){tone='good';msg='<b>Serie salvata per oggi.</b>Domani si sale a '+(si.n+1)+'.'}
+  else if(si.n>0){tone='warn';msg='<b>Mancano '+fmt(si.need)+' ml.</b>Hai '+hl(si.left)+' prima che la serie torni a 0.'}
+  else msg='<b>Mancano '+fmt(si.need)+' ml.</b>Raggiungi l’obiettivo e la serie parte da 1.';
   let wk='';for(let i=0;i<7;i++){const k=addDays(mon,i),c=k>t?'fut':k===t?(si.todayMet?'ok':'now'):(si.map[k]?'ok':'miss');
     wk+='<div class="'+(k===t?'today':'')+'"><span>'+WD[i]+'</span><div class="dt '+c+'">'+(c==='ok'?dropSvg('on',20):c==='now'?dropSvg(si.n>0?'risk':'off',18):'')+'</div></div>'}
   return'<div class="sheet-h"><h2>La tua serie</h2><button class="icb" data-a="close" aria-label="Chiudi">'+ic('x',18)+'</button></div>'
@@ -807,19 +764,17 @@ function shStreak(){const si=streakInfo(),t=today(),mon=monday(t),WD=['L','M','M
    +'<div class="card"><div class="wk">'+wk+'</div></div>'
    +(next?'<div class="g"><div class="g-h"><span>Prossimo traguardo: '+next+' giorni</span><b>'+(next-si.n)+' <small>'+(next-si.n===1?'giorno mancante':'giorni mancanti')+'</small></b></div><div class="g-bar"><i style="width:'+((si.n-prev)/(next-prev)*100).toFixed(1)+'%"></i></div></div>':'')
    +'<div class="ms">'+MS.map(m=>'<div class="'+(si.longest>=m?'':'lock')+'">'+dropSvg(si.longest>=m?'on':'off',26)+'<b>'+m+'</b><small>giorni</small></div>').join('')+'</div>'
-   +'<div class="tiles"><div class="tile"><small>Serie più lunga</small><b>'+si.longest+' <span>'+(si.longest===1?'giorno':'giorni')+'</span></b></div><div class="tile"><small>Giorni a obiettivo</small><b>'+si.total+' <span>in totale</span></b></div></div>'
-   +'<p class="note">La serie cresce di 1 per ogni giorno in cui raggiungi l’obiettivo di idratazione, quello che tiene conto di passi e meteo. Hai tempo fino a mezzanotte; se salti un giorno, riparte da 0.</p>'}
+}
 function renderSheet(){const w=$('#sheet');if(!ui.sheet){w.hidden=true;return}
   const T=ui.sheet.type;$('#sheet-body').innerHTML=T==='add'?shAdd():T==='wx'?shWx():T==='streak'?shStreak():T==='goal'?shGoal():T==='sources'?shSources():shDrink();w.hidden=false}
 function showParty(){const si=streakInfo(),n=si.n,p=$('#party');let bub='';
   for(let i=0;i<16;i++){const z=6+Math.round(Math.random()*16);bub+='<i style="left:'+Math.round(Math.random()*100)+'%;width:'+z+'px;height:'+z+'px;animation-delay:'+(Math.random()*3).toFixed(2)+'s;animation-duration:'+(2.6+Math.random()*2).toFixed(2)+'s"></i>'}
   p.innerHTML='<div class="bub">'+bub+'</div><div class="pc">'+dropSvg('on',150)+'<div class="pn" id="pn">'+Math.max(0,n-1)+'</div>'
    +'<h2>'+(n===1?'Serie iniziata!':'Serie di '+n+' giorni!')+'</h2>'
-   +'<p>'+(MS.indexOf(n)>=0?'Traguardo sbloccato: '+n+' giorni di fila. ':'')+'Obiettivo di oggi raggiunto, la goccia resta accesa fino a mezzanotte. Torna domani per farla crescere.</p>'
+   +'<p>'+(MS.indexOf(n)>=0?'Traguardo sbloccato!':'Obiettivo di oggi raggiunto.')+'</p>'
    +'<button class="btn" data-a="party-close">Continua</button></div>';
   p.hidden=false;setTimeout(()=>{const e=$('#pn');if(e){e.textContent=n;e.classList.add('bump')}},700)}
 function crossed(was){if(!was&&metNow())setTimeout(showParty,350)}
-function demoBar(){return DEMO?'<div class="sec"><div class="demo"><div><b>Demo</b>Dati di esempio: i tuoi restano intatti.</div><button class="btn sm" data-a="demo-off">Esci</button></div></div>':''}
 function closeSheet(){ui.sheet=null;renderSheet()}
 
 /* ================= render ================= */
@@ -873,8 +828,6 @@ const A={
   streak(){ui.sheet={type:'streak'};renderSheet()},
   sources(){ui.sheet={type:'sources'};renderSheet();$('#sheet-body').scrollTop=0},
   'party-close'(d,b,e){if(b.id==='party'&&e.target.closest('.pc')&&!e.target.closest('[data-a="party-close"]:not(#party)'))return;const p=$('#party');p.hidden=true;p.innerHTML=''},
-  'demo-on'(){enterDemo()},
-  'demo-off'(){exitDemo()},
   'wx-save'(){const k=ui.date,D=day(k,true),t=$('#w-t').value.trim(),h=$('#w-h').value.trim();
     if(t==='')delete D.T;else D.T=clamp(Math.round(num(t,20)),-40,60);if(h==='')delete D.H;else D.H=clamp(Math.round(num(h,50)),0,100);D.wa=0;touch(k);closeSheet();render()},
   'wx-geo'(){if(!navigator.geolocation){wxMsg('Questo dispositivo non fornisce la posizione. Inserisci i valori a mano.');return}
@@ -941,37 +894,10 @@ $('#file').addEventListener('change',e=>{const f=e.target.files&&e.target.files[
     catch(err){toast('Questo file non è un backup di DEARID ME.')}};rd.readAsText(f)});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ui.sheet)closeSheet()});
 
-/* ================= demo ================= */
-function buildDemo(){const keep=S;const M=defMeta();M.setup=true;M.u=1;M.profile={sex:'m',age:22,kg:72,cm:180,act:3};M.rem.on=false;S={meta:M,months:{}};
-  let seed=20261112;const rnd=()=>{seed=(seed*16807)%2147483647;return seed/2147483647};
-  const t=today(),W=['08:20','09:30','10:50','12:20','13:40','15:00','16:20','17:40','19:00','20:30','21:40','22:30'],SZ=[500,330,250,500,330,750];
-  for(let i=27;i>=1;i--){const k=addDays(t,-i),hit=i<=12||(i>=14&&i<=21)||i===23||i===24||i===26,D=day(k,true),wd=parseKey(k).getDay();
-    D.s=Math.round((4200+rnd()*9500)/100)*100;D.T=Math.round(15+rnd()*7);if(i%9===4)D.T=27;D.H=Math.round(50+rnd()*25);
-    const np=4+Math.floor(rnd()*4);D.p=[];for(let j=0;j<np;j++)D.p.push(pad(8+Math.floor(j*14/np))+':'+pad(Math.floor(rnd()*60)));
-    D.e.push({i:uid(),d:'espresso',ml:30,t:'07:40'});
-    if(rnd()<.4)D.e.push({i:uid(),d:'cappuccino',ml:180,t:'10:15'});
-    if(rnd()<.35)D.e.push({i:uid(),d:'cola',ml:330,t:'13:15'});
-    if(rnd()<.25)D.e.push({i:uid(),d:'te',ml:250,t:'17:10'});
-    if((wd===5||wd===6)&&rnd()<.75)D.e.push({i:uid(),d:'birra',ml:400,t:'21:30'});
-    const g=goalParts(k).total,target=g*(hit?1.03+rnd()*.14:.6+rnd()*.26);let n=0;
-    while(dayStats(k).eff<target&&n<40){D.e.push({i:uid(),d:'acqua',ml:SZ[Math.floor(rnd()*SZ.length)],t:W[n%W.length]});n++}
-    D.e.sort((a,b)=>hm2min(a.t)-hm2min(b.t));D.g=g;S.months[k.slice(0,7)].u=1}
-  const D=day(t,true),now=hm2min(nowHM()),at=m=>{const x=Math.max(5,Math.min(now-5,m));return pad(Math.floor(x/60))+':'+pad(x%60)};
-  D.s=Math.round(Math.max(1500,now*9.5)/100)*100;D.T=19;D.H=64;D.p=['08:10','10:40','13:20'].filter(x=>hm2min(x)<now);
-  D.e.push({i:uid(),d:'espresso',ml:30,t:at(460)});D.e.push({i:uid(),d:'cappuccino',ml:180,t:at(600)});
-  const target=goalParts(t).total-380;let n=0,tm=520;
-  while(n<20){const z=[500,330,500,250][n%4];if(dayStats(t).eff+z>target)break;D.e.push({i:uid(),d:'acqua',ml:z,t:at(tm)});tm+=70;n++}
-  const rest=Math.round((target-dayStats(t).eff)/10)*10;if(rest>=50)D.e.push({i:uid(),d:'acqua',ml:rest,t:at(tm)});
-  S.months[t.slice(0,7)].u=1;const out=S;S=keep;return out}
-function enterDemo(){if(DEMO)return;REAL=S;S=buildDemo();DEMO=true;ui.tab='oggi';ui.date=today();ui.pct=null;ui.sel=null;ui.sheet=null;renderSheet();render();$('#main').scrollTop=0;toast('Demo aperta: dati di esempio')}
-function exitDemo(){if(!DEMO)return;S=REAL;REAL=null;DEMO=false;if(location.hash==='#demo'){try{history.replaceState(null,'',location.pathname+location.search)}catch(e){location.hash=''}}
-  ui.tab='oggi';ui.date=today();ui.pct=null;ui.sel=null;ui.sheet=null;renderSheet();$('#party').hidden=true;render();$('#main').scrollTop=0;toast('Sei tornato ai tuoi dati')}
-window.addEventListener('hashchange',()=>{if(location.hash==='#demo')enterDemo()});
-
 /* ================= boot ================= */
 document.querySelectorAll('.tab').forEach(b=>{const t=TABS[b.dataset.tab];b.innerHTML=ic(t[0])+'<span>'+t[1]+'</span>'});
 $('#fab').innerHTML=ic('plus',26);
-loadLocal();if(location.hash==='#demo')enterDemo();else render();initCloud();
+loadLocal();render();initCloud();
 let notified=0;
 setInterval(()=>{const t=today();if(t!==ui.dayNow){if(ui.date===ui.dayNow)ui.date=t;ui.dayNow=t;ui.pct=null}
   if(overdue()&&Date.now()-notified>S.meta.rem.min*60000*.9){notified=Date.now();if(document.hidden)notify('È passato un po’ dall’ultima bevuta: un bicchiere d’acqua?')}
