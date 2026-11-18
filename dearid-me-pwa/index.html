@@ -297,7 +297,7 @@ input[type=range]{width:100%;accent-color:var(--water);min-height:32px}
 (()=>{'use strict';
 /* ================= helpers ================= */
 const $=(s,r=document)=>r.querySelector(s);
-const LS='dearid.v1';
+const LS='dearid.v1',VER=7;
 const pad=n=>String(n).padStart(2,'0');
 const dkey=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
 const parseKey=k=>{const a=k.split('-').map(Number);return new Date(a[0],a[1]-1,a[2])};
@@ -679,7 +679,7 @@ function vProf(){const P=S.meta.profile,R=S.meta.rem,gp=goalParts(today()),nt=('
     +'</div></div></div>';
   h+='<div class="sec"><h2>Dati</h2><div class="card" style="display:flex;gap:8px;flex-wrap:wrap">'
     +'<button class="btn sm" data-a="export">Esporta backup</button><button class="btn sm" data-a="import">Importa backup</button><button class="btn sm danger" data-a="reset">'+(ui.resetArm?'Tocca di nuovo per cancellare tutto':'Cancella tutto')+'</button></div></div>';
-  h+='<div class="sec"><button class="btn ghost wide" data-a="sources">Fonti e metodo</button></div>';
+  h+='<div class="sec"><button class="btn ghost wide" data-a="sources">Fonti e metodo</button><p class="note" style="text-align:center">Versione '+VER+'</p></div>';
   return h}
 
 /* ================= sheets ================= */
@@ -905,7 +905,10 @@ setInterval(()=>{const t=today();if(t!==ui.dayNow){if(ui.date===ui.dayNow)ui.dat
 document.addEventListener('visibilitychange',()=>{if(!document.hidden){maybeWx();if(!ui.sheet&&!typing())render()}});
 function maybeWx(){if(!S.meta.wx.auto||inClaude)return;let last=0;try{last=+localStorage.getItem(LS+'.wx')||0}catch(e){}if(Date.now()-last>30*60000)autoWx(true)}
 maybeWx();
-if(!inClaude&&'serviceWorker'in navigator&&location.protocol==='https:'){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+if(!inClaude&&'serviceWorker'in navigator&&location.protocol==='https:'){let swReg=null,reloaded=false;const hadCtrl=!!navigator.serviceWorker.controller;
+  navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).then(r=>{swReg=r;r.update().catch(()=>{})}).catch(()=>{});
+  navigator.serviceWorker.addEventListener('controllerchange',()=>{if(hadCtrl&&!reloaded){reloaded=true;location.reload()}});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden&&swReg)swReg.update().catch(()=>{})})}
 })();
 </script>
 </body>

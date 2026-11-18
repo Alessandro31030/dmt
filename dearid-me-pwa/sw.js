@@ -1,11 +1,18 @@
 /* DEARID ME — service worker.
    Per pubblicare una nuova versione: sostituisci i file e alza il numero qui sotto. */
-const CACHE = 'dearid-v6';
+const CACHE = 'dearid-v7';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
 const FONTS = /^https:\/\/fonts\.(googleapis|gstatic)\.com\//;
 
+/* Scarica sempre dal server, saltando la cache del browser (GitHub Pages la tiene 10 minuti). */
+const fresh = url => fetch(url, { cache: 'no-store', credentials: 'same-origin' });
+
 self.addEventListener('install', e => {
-  e.waitUntil(caches.open(CACHE).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+  e.waitUntil(
+    caches.open(CACHE)
+      .then(c => Promise.all(SHELL.map(u => fresh(u).then(r => { if (r.ok) return c.put(u, r); }))))
+      .then(() => self.skipWaiting())
+  );
 });
 
 self.addEventListener('activate', e => {
@@ -16,14 +23,14 @@ self.addEventListener('activate', e => {
   );
 });
 
-/* Pagina: prima la rete (così gli aggiornamenti arrivano da soli), dopo 3 s o offline la copia salvata. */
-function pageFirstNetwork(req) {
+/* Pagina: prima la rete (così gli aggiornamenti arrivano da soli), dopo 4 s o offline la copia salvata. */
+function page() {
   return caches.open(CACHE).then(cache => {
-    const net = fetch(req).then(res => {
-      if (res && res.ok) cache.put('index.html', res.clone());
-      return res;
+    const net = fresh('index.html').then(res => {
+      if (res && res.ok) { cache.put('index.html', res.clone()); return res; }
+      return cache.match('index.html').then(c => c || res);
     });
-    const timeout = new Promise(r => setTimeout(r, 3000)).then(() => cache.match('index.html'));
+    const timeout = new Promise(r => setTimeout(r, 4000)).then(() => cache.match('index.html'));
     return Promise.race([net.catch(() => cache.match('index.html')), timeout])
       .then(r => r || net)
       .catch(() => cache.match('index.html'));
@@ -36,13 +43,13 @@ self.addEventListener('fetch', e => {
   const url = new URL(req.url);
 
   if (req.mode === 'navigate' && url.origin === location.origin) {
-    e.respondWith(pageFirstNetwork(req));
+    e.respondWith(page());
     return;
   }
   /* File dell'app: copia salvata, aggiornata in background. */
   if (url.origin === location.origin) {
     e.respondWith(caches.open(CACHE).then(cache => cache.match(req).then(hit => {
-      const net = fetch(req).then(res => { if (res && res.ok) cache.put(req, res.clone()); return res; }).catch(() => hit);
+      const net = fresh(req.url).then(res => { if (res && res.ok) cache.put(req, res.clone()); return res; }).catch(() => hit);
       return hit || net;
     })));
     return;
