@@ -32,7 +32,7 @@
   color-scheme:light only;
 }
 *{box-sizing:border-box}
-html,body{height:100%;margin:0}
+html,body{height:100%;margin:0;overflow:hidden}
 body{background:var(--bg);color:var(--ink);font:400 15px/1.45 var(--body);-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent;overscroll-behavior:none}
 button,input,select{font:inherit;color:inherit}
 button{cursor:pointer;border:0;background:none;padding:0;transition:transform .12s ease,background-color .2s,color .2s}
@@ -40,8 +40,8 @@ button:active:not(:disabled){transform:scale(.96)}
 button:disabled{opacity:.3;cursor:default}
 :focus-visible{outline:2px solid var(--water);outline-offset:2px}
 h1,h2,h3,p{margin:0}
-#app{height:100%;max-width:480px;margin:0 auto;position:relative;background:var(--bg);overflow:hidden}
-#main{height:100%;overflow-y:auto;-webkit-overflow-scrolling:touch;padding-bottom:calc(112px + env(safe-area-inset-bottom))}
+#app{position:fixed;top:0;bottom:0;left:0;right:0;max-width:480px;margin:0 auto;background:var(--bg);overflow:hidden}
+#main{height:100%;overflow-x:hidden;overflow-y:auto;overscroll-behavior-y:contain;-webkit-overflow-scrolling:touch;padding-bottom:calc(112px + env(safe-area-inset-bottom))}
 .ic{flex:none;display:block}
 
 /* ---------- today: header + drop ---------- */
@@ -60,7 +60,8 @@ h1,h2,h3,p{margin:0}
 .streak.late .sd{animation:pulse 1.4s ease-in-out infinite}
 @keyframes pulse{50%{transform:scale(1.18)}}
 .gauge{display:flex;flex-direction:column;align-items:center;gap:12px;padding:10px 16px 2px}
-.dropg{width:min(56vw,216px);height:auto;display:block;overflow:visible;filter:drop-shadow(0 18px 28px rgba(29,143,225,.2))}
+.dropg{width:min(56vw,216px);height:auto;display:block;overflow:hidden}
+.dropg .shd{fill:#1D8FE1;opacity:.13}
 .dropg .bgd{fill:var(--water-soft)}
 .dropg .rim{fill:none;stroke:var(--surface);stroke-width:3;opacity:.9}
 .dropg .w1{animation:wv 5.5s linear infinite}
@@ -208,9 +209,10 @@ th:first-child,td:first-child{text-align:left;white-space:normal;font-weight:600
 
 /* ---------- sheets, tabs, toast ---------- */
 .sheet-wrap{position:absolute;inset:0;background:rgba(6,16,28,.42);display:flex;align-items:flex-end;z-index:30}
-.sheet{background:var(--bg);border-radius:26px 26px 0 0;max-height:92%;overflow-y:auto;width:100%;padding:8px 16px calc(22px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px;animation:up .28s cubic-bezier(.2,.9,.3,1);box-shadow:var(--shadow-lg)}
+.sheet{background:var(--bg);border-radius:26px 26px 0 0;max-height:calc(100% - 28px - env(safe-area-inset-top));overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;width:100%;padding:8px 16px calc(36px + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:14px;animation:up .28s cubic-bezier(.2,.9,.3,1);box-shadow:var(--shadow-lg)}
 .sheet::before{content:"";align-self:center;flex:none;width:38px;height:5px;border-radius:3px;background:var(--line)}
 @keyframes up{from{transform:translateY(28px);opacity:.5}}
+.sheet>*{flex-shrink:0}
 .sheet-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .sheet-h h2{font:800 24px/1.1 var(--display);letter-spacing:-.01em}
 .sheet-h .icb{background:var(--surface);box-shadow:var(--shadow);width:36px;height:36px}
@@ -272,12 +274,32 @@ input[type=range]{width:100%;accent-color:var(--water);min-height:32px}
 .srow b{font-size:14px}
 .srow small{color:var(--muted);font-size:13px}
 .srow a{color:var(--water);font-weight:700;font-size:13px;text-decoration:none;align-self:flex-start;padding:2px 0}
+#splash{position:fixed;top:0;bottom:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:center;background:radial-gradient(130% 75% at 50% 32%,#DDEBF8 0%,#F2F5F9 72%);transition:opacity .4s ease,visibility .4s}
+#splash.out{opacity:0;visibility:hidden}
+.sp-in{display:flex;flex-direction:column;align-items:center;gap:20px;margin-top:-6vh}
+.sp-drop{width:104px;height:auto;display:block;animation:spf 2.6s ease-in-out infinite}
+@keyframes spf{50%{transform:translateY(-7px)}}
+.sp-name{font:900 21px/1 var(--display);letter-spacing:.08em;color:var(--ink)}
+.sp-bar{width:184px;height:16px;border-radius:999px;background:#DCEAF7;overflow:hidden;box-shadow:inset 0 1px 3px rgba(12,40,70,.12)}
+.sp-bar i{display:block;position:relative;height:100%;width:6%;border-radius:999px;background:linear-gradient(180deg,#7EE0FA,#1D8FE1 70%,#0B5FB0);overflow:hidden;transition:width .5s cubic-bezier(.3,.8,.3,1)}
+.sp-bar i::before{content:"";position:absolute;top:-3px;left:0;width:200%;height:8px;background:radial-gradient(10px 5px at 10px 0,rgba(255,255,255,.55) 98%,transparent 100%) 0 0/20px 8px repeat-x;animation:spw 1.1s linear infinite}
+.sp-bar i::after{content:"";position:absolute;right:4px;top:4px;width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,.7);box-shadow:-14px 4px 0 -1px rgba(255,255,255,.5),-30px 1px 0 -1px rgba(255,255,255,.45)}
+@keyframes spw{to{transform:translateX(-20px)}}
 [hidden]{display:none!important}
-@media (prefers-reduced-motion:reduce){.dropg .w1,.dropg .w2,.dropg .bb,.sheet,.toast,.pc .sd,.pn.bump,.streak.late .sd{animation:none}.bub{display:none}}
+@media (prefers-reduced-motion:reduce){.sp-drop,.sp-bar i::before{animation:none}.dropg .w1,.dropg .w2,.dropg .bb,.sheet,.toast,.pc .sd,.pn.bump,.streak.late .sd{animation:none}.bub{display:none}}
 @media (max-width:350px){.datebtn b{font-size:25px}.dgrid{grid-template-columns:repeat(2,1fr)}.qb b{font-size:16px}}
 </style>
 </head>
 <body>
+<div id="splash" aria-hidden="true"><div class="sp-in">
+<svg class="sp-drop" viewBox="0 0 200 252"><defs><linearGradient id="spg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8BE4FB"/><stop offset=".5" stop-color="#2A9BE6"/><stop offset="1" stop-color="#0B57A8"/></linearGradient></defs><ellipse cx="100" cy="243" rx="58" ry="6" fill="#1D8FE1" opacity=".14"/><path d="M100 8C120 34 182 92 182 150A82 82 0 1 1 18 150C18 92 80 34 100 8Z" fill="url(#spg)"/><ellipse cx="62" cy="150" rx="11" ry="27" transform="rotate(18 62 150)" fill="#fff" opacity=".35"/></svg>
+<div class="sp-name">DEARID ME</div>
+<div class="sp-bar"><i id="sp-fill"></i></div>
+</div></div>
+<script>(function(){var t0=Date.now(),done=false;
+window.__sp=function(p){var f=document.getElementById('sp-fill');if(f)f.style.width=Math.max(6,Math.min(100,p))+'%'};
+window.__spDone=function(){if(done)return;done=true;__sp(100);var wait=Math.max(450,1100-(Date.now()-t0));setTimeout(function(){var s=document.getElementById('splash');if(s){s.classList.add('out');setTimeout(function(){s.remove()},450)}},wait)};
+setTimeout(function(){__sp(22)},30);setTimeout(window.__spDone,5000);})();</script>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><linearGradient id="dg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8BE4FB"/><stop offset=".5" stop-color="#2A9BE6"/><stop offset="1" stop-color="#0B57A8"/></linearGradient><linearGradient id="dgr" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E6F3FD"/><stop offset="1" stop-color="#AFD5F3"/></linearGradient></defs></svg>
 <div id="app">
   <main id="main"><div id="view"></div></main>
@@ -297,7 +319,7 @@ input[type=range]{width:100%;accent-color:var(--water);min-height:32px}
 (()=>{'use strict';
 /* ================= helpers ================= */
 const $=(s,r=document)=>r.querySelector(s);
-const LS='dearid.v1',VER=7;
+const LS='dearid.v1',VER=8;
 const pad=n=>String(n).padStart(2,'0');
 const dkey=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
 const parseKey=k=>{const a=k.split('-').map(Number);return new Date(a[0],a[1]-1,a[2])};
@@ -464,6 +486,8 @@ async function initCloud(){if(!inClaude){return}
   }catch(e){sync='local';paintSync()}}
 function paintSync(){const el=$('#sync');if(el)el.textContent=syncText()}
 const syncText=()=>sync==='cloud'?'Dati salvati nel tuo account Claude, privati.':sync==='wait'?'Collegamento al salvataggio in corso…':sync==='err'?'Salvataggio remoto non riuscito: i dati restano su questo dispositivo.':'Dati salvati solo su questo dispositivo.';
+function keepTrash(){try{localStorage.setItem(LS+'.trash',JSON.stringify({at:Date.now(),state:S}))}catch(e){}}
+function getTrash(){try{const t=JSON.parse(localStorage.getItem(LS+'.trash')||'null');if(t&&t.state&&t.state.meta&&Date.now()-t.at<7*864e5)return t}catch(e){}return null}
 function touchMeta(){S.meta.u=Date.now();saveLocal();queue('meta')}
 function touch(k){const D=day(k,true);if(k<=today())D.g=goalParts(k).total;const m=k.slice(0,7);S.months[m].u=Date.now();saveLocal();queue('m-'+m)}
 
@@ -538,7 +562,7 @@ function insights(k){const out=[],isT=k===today(),st=dayStats(k),R=records(),D=d
   return out}
 
 /* ================= UI state ================= */
-const ui={tab:'oggi',date:today(),range:'week',anchor:today(),metric:'eff',sel:null,sheet:null,pct:null,undo:null,dayNow:today(),resetArm:0};
+const ui={tab:'oggi',date:today(),range:'week',anchor:today(),metric:'eff',sel:null,sheet:null,pct:null,undo:null,dayNow:today()};
 const typing=()=>{const a=document.activeElement;return!!(a&&/^(INPUT|SELECT|TEXTAREA)$/.test(a.tagName))};
 let toastT=0;
 function toast(msg,undo){const t=$('#toast');ui.undo=undo||null;t.innerHTML='<span>'+esc(msg)+'</span>'+(undo?'<button data-a="undo">Annulla</button>':'');t.hidden=true;void t.offsetWidth;t.hidden=false;clearTimeout(toastT);toastT=setTimeout(()=>{t.hidden=true;ui.undo=null},undo?6000:2600)}
@@ -549,9 +573,9 @@ const DPATH='M100 8C120 34 182 92 182 150A82 82 0 1 1 18 150C18 92 80 34 100 8Z'
 const lvlY=p=>p>=100?2:p<=0?246:232-(p/100)*218;
 function dropGauge(st){const n=fmt(st.eff),g='di '+fmt(st.goal)+' ml',wave='M0 0Q25 -7 50 0T100 0T150 0T200 0T250 0T300 0T350 0T400 0V260H0Z';
   const txt=c=>'<text class="'+c+' tn" x="100" y="150" text-anchor="middle">'+n+'<tspan class="tu" dx="3">ml</tspan></text><text class="'+c+' ts" x="100" y="176" text-anchor="middle">'+g+'</text>';
-  return'<svg class="dropg" viewBox="0 0 200 240" role="img" aria-label="'+n+' ml '+g+'"><defs><clipPath id="dc"><path d="'+DPATH+'"/></clipPath><clipPath id="wc"><rect id="wcr" x="0" y="246" width="200" height="260"/></clipPath>'
+  return'<svg class="dropg" viewBox="0 0 200 252" role="img" aria-label="'+n+' ml '+g+'"><defs><clipPath id="dc"><path d="'+DPATH+'"/></clipPath><clipPath id="wc"><rect id="wcr" x="0" y="246" width="200" height="260"/></clipPath>'
    +'<linearGradient id="wg" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="230"><stop offset="0" stop-color="#7EE0FA"/><stop offset=".4" stop-color="#2A9BE6"/><stop offset="1" stop-color="#0B4F9E"/></linearGradient></defs>'
-   +'<path class="bgd" d="'+DPATH+'"/>'+txt('t1')
+   +'<ellipse class="shd" cx="100" cy="243" rx="62" ry="6"/><path class="bgd" d="'+DPATH+'"/>'+txt('t1')
    +'<g clip-path="url(#dc)"><g id="lvl" transform="translate(0 246)"><g class="w2"><path d="'+wave+'" fill="url(#wg)" opacity=".4" transform="translate(-30 -4)"/></g><g class="w1"><path d="'+wave+'" fill="url(#wg)"/></g>'
    +'<circle class="bb" cx="40" cy="150" r="2.6"/><circle class="bb" cx="162" cy="165" r="2" style="animation-delay:1.6s"/><circle class="bb" cx="52" cy="205" r="2.2" style="animation-delay:3s"/></g>'
    +'<ellipse cx="58" cy="132" rx="8" ry="24" transform="rotate(18 58 132)" fill="#fff" opacity=".2"/></g>'
@@ -677,9 +701,12 @@ function vProf(){const P=S.meta.profile,R=S.meta.rem,gp=goalParts(today()),nt=('
   h+='<div class="sec"><div class="sh"><h2>Bevande</h2><button class="link" data-a="new-drink">Nuova</button></div><div class="card"><div class="list">'
     +GROUPS.map(gr=>{const ds=S.meta.drinks.filter(d=>grpOf(d)===gr[0]);return ds.length?'<p class="lgh">'+gr[1]+'</p>'+ds.map(d=>'<button class="li" data-a="edit-drink" data-id="'+esc(d.id)+'"'+(d.hid?' style="opacity:.5"':'')+'>'+dIcon(d,40)+'<span class="g1"><b>'+esc(d.n)+(d.hid?' (nascosta)':'')+'</b></span>'+ic('right',18)+'</button>').join(''):''}).join('')
     +'</div></div></div>';
-  h+='<div class="sec"><h2>Dati</h2><div class="card" style="display:flex;gap:8px;flex-wrap:wrap">'
-    +'<button class="btn sm" data-a="export">Esporta backup</button><button class="btn sm" data-a="import">Importa backup</button><button class="btn sm danger" data-a="reset">'+(ui.resetArm?'Tocca di nuovo per cancellare tutto':'Cancella tutto')+'</button></div></div>';
+  const tr=getTrash();
+  h+='<div class="sec"><h2>Dati</h2>'
+    +(tr?'<div class="card rowc"><div><h3>Dati cancellati</h3><p>'+DF_WD.format(new Date(tr.at))+'</p></div><button class="btn sm pri" data-a="restore">Ripristina</button></div>':'')
+    +'<div class="duo"><button class="btn" data-a="export">Esporta backup</button><button class="btn" data-a="import">Importa backup</button></div></div>';
   h+='<div class="sec"><button class="btn ghost wide" data-a="sources">Fonti e metodo</button><p class="note" style="text-align:center">Versione '+VER+'</p></div>';
+  h+='<div class="sec" style="padding-top:28px"><button class="btn ghost danger wide" data-a="reset">Cancella tutti i dati</button></div>';
   return h}
 
 /* ================= sheets ================= */
@@ -765,8 +792,11 @@ function shStreak(){const si=streakInfo(),t=today(),mon=monday(t),WD=['L','M','M
    +(next?'<div class="g"><div class="g-h"><span>Prossimo traguardo: '+next+' giorni</span><b>'+(next-si.n)+' <small>'+(next-si.n===1?'giorno mancante':'giorni mancanti')+'</small></b></div><div class="g-bar"><i style="width:'+((si.n-prev)/(next-prev)*100).toFixed(1)+'%"></i></div></div>':'')
    +'<div class="ms">'+MS.map(m=>'<div class="'+(si.longest>=m?'':'lock')+'">'+dropSvg(si.longest>=m?'on':'off',26)+'<b>'+m+'</b><small>giorni</small></div>').join('')+'</div>'
 }
+function shReset(){return'<div class="sheet-h"><h2>Cancellare tutto?</h2><button class="icb" data-a="close" aria-label="Chiudi">'+ic('x',18)+'</button></div>'
+   +'<p style="font-size:15px">Spariscono bevute, profilo e impostazioni. Per 7 giorni potrai ancora ripristinarli da Profilo.</p>'
+   +'<button class="btn wide" data-a="close">Annulla</button><button class="btn ghost danger wide" data-a="reset-go">Sì, cancella tutto</button>'}
 function renderSheet(){const w=$('#sheet');if(!ui.sheet){w.hidden=true;return}
-  const T=ui.sheet.type;$('#sheet-body').innerHTML=T==='add'?shAdd():T==='wx'?shWx():T==='streak'?shStreak():T==='goal'?shGoal():T==='sources'?shSources():shDrink();w.hidden=false}
+  const T=ui.sheet.type;$('#sheet-body').innerHTML=T==='reset'?shReset():T==='add'?shAdd():T==='wx'?shWx():T==='streak'?shStreak():T==='goal'?shGoal():T==='sources'?shSources():shDrink();w.hidden=false}
 function showParty(){const si=streakInfo(),n=si.n,p=$('#party');let bub='';
   for(let i=0;i<16;i++){const z=6+Math.round(Math.random()*16);bub+='<i style="left:'+Math.round(Math.random()*100)+'%;width:'+z+'px;height:'+z+'px;animation-delay:'+(Math.random()*3).toFixed(2)+'s;animation-duration:'+(2.6+Math.random()*2).toFixed(2)+'s"></i>'}
   p.innerHTML='<div class="bub">'+bub+'</div><div class="pc">'+dropSvg('on',150)+'<div class="pn" id="pn">'+Math.max(0,n-1)+'</div>'
@@ -803,7 +833,7 @@ async function notify(body){try{if(!('Notification'in window)||Notification.perm
   if(reg&&reg.showNotification)reg.showNotification('DEARID ME',{body,tag:'dearid',icon:'icon-192.png'});else new Notification('DEARID ME',{body,tag:'dearid'})}catch(e){}}
 
 const A={
-  tab(d){ui.tab=d.tab;ui.pct=null;ui.resetArm=0;render();$('#main').scrollTop=0},
+  tab(d){ui.tab=d.tab;ui.pct=null;render();$('#main').scrollTop=0},
   day(d){const k=addDays(ui.date,+d.d);if(k>today())return;ui.date=k;ui.pct=null;render()},
   today(){if(ui.date===today())return;ui.date=today();ui.pct=null;render()},
   quick(d){const was=metNow(),k=ui.date,r=addEntry(k,d.d,+d.ml);render();addedToast(k,r);crossed(was)},
@@ -858,11 +888,14 @@ const A={
   'hide-drink'(){const x=drink(ui.sheet.id);if(x===GONE)return;x.hid=!x.hid;touchMeta();closeSheet();render()},
   close(d,b,e){if(b.id==='sheet'&&e.target!==b)return;closeSheet()},
   async export(){const data=JSON.stringify({app:'dearid',v:1,exported:new Date().toISOString(),state:S}),fn='dearid-backup-'+today()+'.json';
+    if(!inClaude&&navigator.canShare&&window.File){try{const file=new File([data],fn,{type:'application/json'});if(navigator.canShare({files:[file]})){await navigator.share({files:[file],title:fn});toast('Backup pronto');return}}catch(e){if(e&&e.name==='AbortError')return}}
     if(inClaude){try{const dl=await window.claude.use('downloads');if(!dl){toast('Qui non posso salvare file.');return}await dl.save({filename:fn,data});toast('Backup salvato')}catch(e){if(!e||e.code!=='declined')toast('Backup non salvato.')}return}
     try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([data],{type:'application/json'}));a.download=fn;document.body.appendChild(a);a.click();a.remove();toast('Backup scaricato')}catch(e){toast('Backup non salvato.')}},
   import(){$('#file').click()},
-  reset(){if(!ui.resetArm){ui.resetArm=1;render();setTimeout(()=>{if(ui.resetArm){ui.resetArm=0;if(ui.tab==='prof'&&!typing())render()}},4000);return}
-    ui.resetArm=0;const now=Date.now();for(const m in S.months){S.months[m]={u:now,days:{}};queue('m-'+m)}S.meta=defMeta();touchMeta();ui.date=today();render();toast('Tutti i dati sono stati cancellati')},
+  reset(){ui.sheet={type:'reset'};renderSheet()},
+  'reset-go'(){keepTrash();const now=Date.now();for(const m in S.months){S.months[m]={u:now,days:{}};queue('m-'+m)}S.meta=defMeta();touchMeta();ui.date=today();ui.pct=null;closeSheet();render();toast('Dati cancellati. Puoi ripristinarli da Profilo per 7 giorni.')},
+  restore(){const t=getTrash();if(!t)return;const now=Date.now();S={meta:normMeta(t.state.meta),months:t.state.months||{}};S.meta.u=now;queue('meta');for(const m in S.months){S.months[m].u=now;queue('m-'+m)}
+    saveLocal();try{localStorage.removeItem(LS+'.trash')}catch(e){}ui.date=today();ui.pct=null;render();toast('Dati ripristinati')},
   async notif(){try{await Notification.requestPermission()}catch(e){}render()}
 };
 document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b||b.disabled)return;const fn=A[b.dataset.a];if(fn)fn(b.dataset,b,e)});
@@ -890,14 +923,17 @@ document.addEventListener('change',e=>{const el=e.target,c=el.dataset&&el.datase
   touchMeta();render()});
 $('#file').addEventListener('change',e=>{const f=e.target.files&&e.target.files[0];e.target.value='';if(!f)return;const rd=new FileReader();
   rd.onload=()=>{try{const j=JSON.parse(rd.result),st=j&&j.state;if(!st||!st.meta||typeof st.months!=='object')throw 0;const now=Date.now();
-      S={meta:normMeta(st.meta),months:st.months};S.meta.u=now;queue('meta');for(const m in S.months){S.months[m].u=now;queue('m-'+m)}saveLocal();ui.date=today();ui.pct=null;render();toast('Backup importato')}
+      keepTrash();S={meta:normMeta(st.meta),months:st.months};S.meta.u=now;queue('meta');for(const m in S.months){S.months[m].u=now;queue('m-'+m)}saveLocal();ui.date=today();ui.pct=null;render();toast('Backup importato')}
     catch(err){toast('Questo file non è un backup di DEARID ME.')}};rd.readAsText(f)});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&ui.sheet)closeSheet()});
 
 /* ================= boot ================= */
 document.querySelectorAll('.tab').forEach(b=>{const t=TABS[b.dataset.tab];b.innerHTML=ic(t[0])+'<span>'+t[1]+'</span>'});
 $('#fab').innerHTML=ic('plus',26);
-loadLocal();render();initCloud();
+const sp=p=>{try{window.__sp&&window.__sp(p)}catch(e){}};
+sp(45);loadLocal();sp(65);render();sp(85);initCloud();
+Promise.race([document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve(),sleep(1500)]).then(()=>{if(ui.tab==='oggi'&&!ui.sheet)render();try{window.__spDone&&window.__spDone()}catch(e){}});
+try{if(!inClaude&&navigator.storage&&navigator.storage.persist)navigator.storage.persist().catch(()=>{})}catch(e){}
 let notified=0;
 setInterval(()=>{const t=today();if(t!==ui.dayNow){if(ui.date===ui.dayNow)ui.date=t;ui.dayNow=t;ui.pct=null}
   if(overdue()&&Date.now()-notified>S.meta.rem.min*60000*.9){notified=Date.now();if(document.hidden)notify('È passato un po’ dall’ultima bevuta: un bicchiere d’acqua?')}
