@@ -1,6 +1,6 @@
 /* DEARID ME — service worker.
    Per pubblicare una nuova versione: sostituisci i file e alza il numero qui sotto. */
-const CACHE = 'dearid-v8';
+const CACHE = 'dearid-v9';
 const SHELL = ['./', 'index.html', 'manifest.webmanifest', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
 const FONTS = /^https:\/\/fonts\.(googleapis|gstatic)\.com\//;
 
